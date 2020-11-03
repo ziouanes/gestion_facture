@@ -74,13 +74,16 @@ namespace simpleDatabase7
         private void button2_Click(object sender, EventArgs e)
         {
 
-
-            if (dataGridView1.CurrentRow.Selected == false)
+            if (dataGridView1.CurrentRow != null)
+            {
+                if (dataGridView1.CurrentRow.Selected == false )
             {
                 this.Alert("please select the row to update", Form_Alert.enmType.Warning);
             }
             else
             {
+                
+
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
@@ -102,6 +105,11 @@ namespace simpleDatabase7
 
             }
         }
+
+
+            }
+
+
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -361,6 +369,64 @@ namespace simpleDatabase7
                 {
                     this.Alert("data note found", Form_Alert.enmType.Info);
 
+                }
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+
+           
+            
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
+        {
+            string numero = "";
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                    numero = Convert.ToString(selectedRow.Cells[0].Value);
+
+
+
+
+
+                    if (MessageBox.Show("Do you really want to delete  facture N° " + Convert.ToString(selectedRow.Cells[0].Value) + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
+
+                        Program.sql_cmd.CommandText = string.Format("delete from facture where N°facture ='{0}' ", numero);
+                        Program.sql_cmd.ExecuteNonQuery();
+
+
+
+
+                        Program.sql_con.Close();
+
+
+
+
+
+                        ///////////show data to grid  
+
+
+
+                        dataGridView1.DataSource = null;
+                        LoadData();
+                        
+                        this.Alert("delete facture Success", Form_Alert.enmType.Info);
+
+                    }
                 }
             }
         }

@@ -88,7 +88,11 @@ namespace simpleDatabase7
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Selected == false)
+            if (dataGridView1.CurrentRow != null)
+            {
+
+
+                if (dataGridView1.CurrentRow.Selected == false)
             {
                 this.Alert("please select the row to update", Form_Alert.enmType.Warning);
             }
@@ -110,6 +114,9 @@ namespace simpleDatabase7
                     dataGridView1.DataSource = null;
                     LoadData();
                 }
+
+            }
+
 
 
             }
@@ -361,6 +368,50 @@ namespace simpleDatabase7
             //workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
             app.Quit();
+        }
+
+        private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
+        {
+            string numero  = "";
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                    numero = Convert.ToString(selectedRow.Cells[0].Value);
+
+
+
+
+
+                    if (MessageBox.Show("Do you really want to delete  ODM N° " + numero + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
+
+                        Program.sql_cmd.CommandText = string.Format("delete from ODM where n°ODM ='{0}' ", numero);
+                        Program.sql_cmd.ExecuteNonQuery();
+
+
+
+
+                        Program.sql_con.Close();
+
+
+
+
+                        ///////////show data to grid  
+
+
+
+                        dataGridView1.DataSource = null;
+                        LoadData();
+
+                        this.Alert("delete facture Success", Form_Alert.enmType.Info);
+
+                    }
+                }
+            }
         }
     }
 }
