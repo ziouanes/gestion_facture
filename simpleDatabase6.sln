@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpleDatabase7", "simpleDatabase7\simpleDatabase7.csproj", "{2AA308F2-71DC-4D1A-BE84-AD62C89ADFCA}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{94B08D2C-23AC-4CFA-8FE8-81B851DD0BEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AA308F2-71DC-4D1A-BE84-AD62C89ADFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA308F2-71DC-4D1A-BE84-AD62C89ADFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA308F2-71DC-4D1A-BE84-AD62C89ADFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA308F2-71DC-4D1A-BE84-AD62C89ADFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94B08D2C-23AC-4CFA-8FE8-81B851DD0BEF}.Debug|Any CPU.ActiveCfg = Debug
+		{94B08D2C-23AC-4CFA-8FE8-81B851DD0BEF}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B842A3E-65B1-4B33-9CAE-9787AE7995AF}
+	EndGlobalSection
+EndGlobal
