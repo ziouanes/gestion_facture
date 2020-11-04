@@ -89,9 +89,9 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                        DateTime date  = DateTime.Parse(selectedRow.Cells[1].Value.ToString());
-                    //DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
-                    string garage = Convert.ToString(selectedRow.Cells[2].Value);
+                        System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                        DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
+                        string garage = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string montant = Convert.ToString(selectedRow.Cells[4].Value);
                     string nbon = Convert.ToString(selectedRow.Cells[5].Value);
@@ -182,9 +182,9 @@ namespace simpleDatabase7
             }
             if (comboBox1.SelectedIndex == 1)
             {
-                if (textBox7.Text != null)
+                if (textBox1.Text != null)
                 {
-                    req1 = "and  N°facture = '" + textBox7.Text + "'";
+                    req1 = "and  N°facture LIKE '%" + textBox1.Text + "%'";
 
 
                 }
@@ -193,9 +193,9 @@ namespace simpleDatabase7
 
             if (comboBox1.SelectedIndex == 2)
             {
-                if (textBox7.Text != null)
+                if (textBox1.Text != null)
                 {
-                    req2 = "and  VÉHICULE = '" + textBox7.Text + "'";
+                    req2 = "and  VÉHICULE LIKE '%" + textBox1.Text + "%'";
 
 
                 }
@@ -204,9 +204,9 @@ namespace simpleDatabase7
 
             if (comboBox1.SelectedIndex == 3)
             {
-                if (textBox7.Text != null)
+                if (textBox1.Text != null)
                 {
-                    req3 = "and  N°BON = '" + textBox7.Text + "'";
+                    req3 = "and  N°BON LIKE '%" + textBox1.Text + "%'";
 
 
                 }
@@ -244,7 +244,6 @@ namespace simpleDatabase7
 
 
 
-            textBox7.Text = "";
 
 
 
@@ -279,7 +278,8 @@ namespace simpleDatabase7
                 int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                 string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p); 
                 string garage = Convert.ToString(selectedRow.Cells[2].Value);
                 string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
@@ -315,13 +315,14 @@ namespace simpleDatabase7
                 int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                 string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p); 
                 string garage = Convert.ToString(selectedRow.Cells[2].Value);
                 string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
-                string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+                System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
+                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp); string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
                 Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE); editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
@@ -336,87 +337,7 @@ namespace simpleDatabase7
 
         private void textBox7_KeyDown_1(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-
-            {
-
-                textBox7.Text = null;
-                string req, req1 = "", req2 = "", req3 = "";
-
-                req = "select * from facture where 1=1 ";
-
-                if (comboBox1.SelectedIndex == -1)
-                {
-
-                    req = "select * from facture where 1=1 ";
-
-
-                }
-                if (comboBox1.SelectedIndex == 1)
-                {
-                    if (textBox7.Text != null)
-                    {
-                        req1 = "and  N°facture = '" + textBox7.Text + "'";
-
-
-                    }
-
-                }
-
-                if (comboBox1.SelectedIndex == 2)
-                {
-                    if (textBox7.Text != null)
-                    {
-                        req2 = "and  VÉHICULE = '" + textBox7.Text + "'";
-
-
-                    }
-
-                }
-
-                if (comboBox1.SelectedIndex == 3)
-                {
-                    if (textBox7.Text != null)
-                    {
-                        req3 = "and  N°BON = '" + textBox7.Text + "'";
-
-
-                    }
-
-                }
-
-                req += req1 + req2 + req3;
-                Program.sql_con.Open();
-                DataTable dt = new DataTable();
-                Program.sql_cmd.CommandText = req;
-
-
-                Program.db = Program.sql_cmd.ExecuteReader();
-                if (Program.db.HasRows)
-                {
-
-                    dt.Load(Program.db);
-                    //hide column id
-                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
-
-                    dataGridView1.DataSource = null;
-
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.ClearSelection();
-
-                }
-                else
-                {
-
-                    this.Alert("Data note found a", Form_Alert.enmType.Error);
-                }
-                Program.db.Close();
-
-                Program.sql_con.Close();
-
-            }
-
-            textBox7.Text = "";
+            
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -480,6 +401,100 @@ namespace simpleDatabase7
         private void textBox7_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox7_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void textBox7_KeyDown_2(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+
+            {
+
+
+                string req, req1 = "", req2 = "", req3 = "";
+
+                req = "select * from facture where 1=1 ";
+
+                if (comboBox1.SelectedIndex == -1)
+                {
+
+                    req = "select * from facture where 1=1 ";
+
+
+                }
+                if (comboBox1.SelectedIndex == 1)
+                {
+                    if (textBox1.Text != null)
+                    {
+                        req1 = "and  N°facture LIKE '%" + textBox1.Text + "%'";
+
+
+                    }
+
+                }
+
+                if (comboBox1.SelectedIndex == 2)
+                {
+                    if (textBox1.Text != null)
+                    {
+                        req2 = "and  VÉHICULE LIKE '%" + textBox1.Text + "%'";
+
+
+                    }
+
+                }
+
+                if (comboBox1.SelectedIndex == 3)
+                {
+                    if (textBox1.Text != null)
+                    {
+                        req3 = "and  N°BON LIKE '%" + textBox1.Text + "%'";
+
+
+                    }
+
+                }
+
+                req += req1 + req2 + req3;
+                Program.sql_con.Open();
+                DataTable dt = new DataTable();
+                Program.sql_cmd.CommandText = req;
+
+
+                Program.db = Program.sql_cmd.ExecuteReader();
+                if (Program.db.HasRows)
+                {
+
+                    dt.Load(Program.db);
+                    //hide column id
+                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
+
+                    dataGridView1.DataSource = null;
+
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.ClearSelection();
+
+                }
+                else
+                {
+
+                    this.Alert("Data note found a", Form_Alert.enmType.Error);
+                }
+                Program.db.Close();
+
+                Program.sql_con.Close();
+
+            }
         }
     }
 }

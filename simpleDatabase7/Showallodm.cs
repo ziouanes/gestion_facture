@@ -102,19 +102,18 @@ namespace simpleDatabase7
                 {
 
 
-                        CultureInfo provider = CultureInfo.InvariantCulture;
                         int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                         DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                         string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                        DateTime dateTime10 = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/mm/yyyy", provider);
-                       // DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                        System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                        DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
                         string distination = Convert.ToString(selectedRow.Cells[2].Value);
                         string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                         string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                         string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                         string montant = Convert.ToString(selectedRow.Cells[6].Value);
 
-                        Editodm edit = new Editodm(numero, dateTime10, distination, Véhicule, kelometrage, bénéficier, montant);
+                        Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant);
                         edit.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
@@ -135,7 +134,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  ODM where " + textsr + " = '" + textbox + "' ", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("select * from  ODM where " + textsr + " LIKE '%" + textbox + "%' ", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             if (!Program.db.HasRows)
             {
@@ -173,25 +172,27 @@ namespace simpleDatabase7
                 {
 
                     LoadData();
-                    textBox7.Text = "";
+                   
                 }
                 else if (comboBox1.SelectedIndex == 1)
                 {
-                    if (textBox7 != null)
+                    if (textBox7.Text != null)
                     {
                         Searchdataodm("n°ODM", textBox7.Text);
 
                     }
+                    else { this.Alert("text required", Form_Alert.enmType.Info); }
 
 
                 }
                 else if (comboBox1.SelectedIndex == 2)
                 {
-                    if (textBox7 != null)
+                    if (textBox7.Text != null)
                     {
                         Searchdataodm("VÉHICULE", textBox7.Text);
 
                     }
+                    else { this.Alert("text required", Form_Alert.enmType.Info); }
 
 
                 }
@@ -207,6 +208,7 @@ namespace simpleDatabase7
 
                 MessageBox.Show(x.Message);
             }
+           
         }
 
         private void textBox7_KeyDown(object sender, KeyEventArgs e)
@@ -227,8 +229,9 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                    
-                    DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+
+                    System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                    DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
                     string distination = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
@@ -284,56 +287,7 @@ namespace simpleDatabase7
         private void textBox7_KeyDown_1(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyCode == Keys.Enter)
-            {
-                try
-                {
-                    if (comboBox1.SelectedIndex == -1)
-                    {
-
-                        LoadData();
-                        //textBox7.Enabled = false;
-
-                    }
-                    else if (comboBox1.SelectedIndex == 0)
-                    {
-
-                        LoadData();
-                        textBox7.Text = "";
-                    }
-                    else if (comboBox1.SelectedIndex == 1)
-                    {
-                        if (textBox7 != null)
-                        {
-                            Searchdataodm("n°ODM", textBox7.Text);
-
-                        }
-
-
-                    }
-                    else if (comboBox1.SelectedIndex == 2)
-                    {
-                        if (textBox7 != null)
-                        {
-                            Searchdataodm("VÉHICULE", textBox7.Text);
-
-                        }
-
-
-                    }
-
-                    else
-                    {
-                        this.Alert("data note found", Form_Alert.enmType.Info);
-
-                    }
-                }
-                catch (Exception x)
-                {
-
-                    MessageBox.Show(x.Message);
-                }
-            }
+            
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -416,6 +370,61 @@ namespace simpleDatabase7
                         this.Alert("delete facture Success", Form_Alert.enmType.Info);
 
                     }
+                }
+            }
+        }
+
+        private void textBox7_KeyDown_2(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    if (comboBox1.SelectedIndex == -1)
+                    {
+
+                        LoadData();
+                        //textBox7.Enabled = false;
+
+                    }
+                    else if (comboBox1.SelectedIndex == 0)
+                    {
+
+                        LoadData();
+
+                    }
+                    else if (comboBox1.SelectedIndex == 1)
+                    {
+                        if (textBox7 != null)
+                        {
+                            Searchdataodm("n°ODM", textBox7.Text);
+
+                        }
+
+
+                    }
+                    else if (comboBox1.SelectedIndex == 2)
+                    {
+                        if (textBox7 != null)
+                        {
+                            Searchdataodm("VÉHICULE", textBox7.Text);
+
+                        }
+
+
+                    }
+
+                    else
+                    {
+                        this.Alert("data note found", Form_Alert.enmType.Info);
+
+                    }
+                }
+                catch (Exception x)
+                {
+
+                    MessageBox.Show(x.Message);
                 }
             }
         }

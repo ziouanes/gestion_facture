@@ -83,7 +83,7 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VÉHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}' , KILOMÉTRAGE = '{6}'  where N°facture = '{7}'  ", dateTimePicker1.Value.ToShortDateString(), textBox1.Text, textBox2.Text, textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToShortDateString() ,textBox3.Text, label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VÉHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}' , KILOMÉTRAGE = '{6}'  where N°facture = '{7}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, textBox2.Text, textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToString("dd/MM/yyyy"), textBox3.Text, label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
