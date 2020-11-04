@@ -14,7 +14,7 @@ namespace simpleDatabase7
     {
         
 
-        public Editfacture(string numerof, DateTime date, string garage, string Véhicule, string montant, string nbon, DateTime datepayment)
+        public Editfacture(string numerof, DateTime date, string garage, string Véhicule, string montant, string nbon, DateTime datepayment  , string KILOMÉTRAGE)
         {
             InitializeComponent();
             label1.Text = numerof;
@@ -24,6 +24,7 @@ namespace simpleDatabase7
             textBox8.Text = montant;
             dateTimePicker2.Value = datepayment;
             textBox6.Text = nbon;
+            textBox3.Text = KILOMÉTRAGE;
         }
 
         private void editfacture_Load(object sender, EventArgs e)
@@ -82,7 +83,7 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VÉHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}'  where N°facture = '{6}'  ", dateTimePicker1.Value.ToShortDateString(), textBox1.Text, textBox2.Text, textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToShortDateString(), label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VÉHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}' , KILOMÉTRAGE = '{6}'  where N°facture = '{7}'  ", dateTimePicker1.Value.ToShortDateString(), textBox1.Text, textBox2.Text, textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToShortDateString() ,textBox3.Text, label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
@@ -133,6 +134,11 @@ namespace simpleDatabase7
                 this.Alert("delete facture Success", Form_Alert.enmType.Info);
 
             }
+
+        }
+
+        private void Editfacture_Load_1(object sender, EventArgs e)
+        {
 
         }
     }

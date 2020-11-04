@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-
+using System.Data.SqlClient;
 
 namespace simpleDatabase7
 {
@@ -31,7 +31,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  facture", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("select * from  facture order by DateFacture asc ", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
@@ -89,14 +89,15 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                    DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                        DateTime date  = DateTime.Parse(selectedRow.Cells[1].Value.ToString());
+                    //DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
                     string garage = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string montant = Convert.ToString(selectedRow.Cells[4].Value);
                     string nbon = Convert.ToString(selectedRow.Cells[5].Value);
                     DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
-                    Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment);
-                    editf.ShowDialog();
+                    string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+                    Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE); editf.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
 
@@ -161,84 +162,98 @@ namespace simpleDatabase7
             app.Quit();
         }
 
-        public void Searchdata(string textsr, string textbox)
-        {
-            Program.sql_con.Open();
-            DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  facture where " + textsr + " = '" + textbox + "' ", Program.sql_con);
-            Program.db = Program.sql_cmd.ExecuteReader();
-            if (!Program.db.HasRows)
-            {
-                this.Alert("Data note found", Form_Alert.enmType.Error);
-
-
-
-
-            }
-            dt.Load(Program.db);
-
-            //hide column id
-            dt.Columns[0].ColumnMapping = MappingType.Hidden;
-
-            dataGridView1.DataSource = null;
-
-            dataGridView1.DataSource = dt;
-            dataGridView1.ClearSelection();
-
-            Program.sql_con.Close();
-        }
+       
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+
+            
+
+            string req, req1 = "", req2 = "", req3 = "";
+
+            req = "select * from facture where 1=1 ";
+
             if (comboBox1.SelectedIndex == -1)
             {
 
-                LoadData();
-                //textBox7.Enabled = false;
+                req = "select * from facture where 1=1 ";
+
 
             }
-            else if (comboBox1.SelectedIndex == 0)
+            if (comboBox1.SelectedIndex == 1)
             {
-
-                LoadData();
-                textBox7.Text = "";
-            }
-            else if (comboBox1.SelectedIndex == 1)
-            {
-                if (textBox7 != null)
+                if (textBox7.Text != null)
                 {
-                    Searchdata("N°facture", textBox7.Text);
+                    req1 = "and  N°facture = '" + textBox7.Text + "'";
+
 
                 }
 
-
             }
-            else if (comboBox1.SelectedIndex == 2)
+
+            if (comboBox1.SelectedIndex == 2)
             {
-                if (textBox7 != null)
+                if (textBox7.Text != null)
                 {
-                    Searchdata("VÉHICULE", textBox7.Text);
+                    req2 = "and  VÉHICULE = '" + textBox7.Text + "'";
+
 
                 }
 
-
             }
-            else if (comboBox1.SelectedIndex == 3)
+
+            if (comboBox1.SelectedIndex == 3)
             {
-                if (textBox7 != null)
+                if (textBox7.Text != null)
                 {
-                    Searchdata("N°BON", textBox7.Text);
+                    req3 = "and  N°BON = '" + textBox7.Text + "'";
+
 
                 }
 
-
             }
-            else
-            {
-                this.Alert("data note found", Form_Alert.enmType.Info);
 
-            }
+            req += req1+req2+req3;
+                Program.sql_con.Open();
+                DataTable dt = new DataTable();
+                Program.sql_cmd.CommandText = req;
+
+                
+                Program.db = Program.sql_cmd.ExecuteReader();
+                if (Program.db.HasRows)
+                {
+
+                    dt.Load(Program.db);
+                    //hide column id
+                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
+
+                    dataGridView1.DataSource = null;
+
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.ClearSelection();
+
+                }
+                else
+                {
+
+                    this.Alert("Data note found ", Form_Alert.enmType.Error);
+                }
+                Program.db.Close();
+
+                Program.sql_con.Close();
+
+
+
+            textBox7.Text = "";
+
+
+
+
+          
+
+
         }
+
 
         private void comboBox1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -270,7 +285,8 @@ namespace simpleDatabase7
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
                 DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment);
+                string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment , KILOMÉTRAGE);
                 editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
@@ -305,8 +321,8 @@ namespace simpleDatabase7
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
                 DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment);
-                editf.ShowDialog();
+                string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE); editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
 
@@ -321,56 +337,86 @@ namespace simpleDatabase7
         private void textBox7_KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+
             {
+
+                textBox7.Text = null;
+                string req, req1 = "", req2 = "", req3 = "";
+
+                req = "select * from facture where 1=1 ";
+
                 if (comboBox1.SelectedIndex == -1)
                 {
 
-                    LoadData();
-                    //textBox7.Enabled = false;
+                    req = "select * from facture where 1=1 ";
+
 
                 }
-                else if (comboBox1.SelectedIndex == 0)
+                if (comboBox1.SelectedIndex == 1)
                 {
-
-                    LoadData();
-                    textBox7.Text = "";
-                }
-                else if (comboBox1.SelectedIndex == 1)
-                {
-                    if (textBox7 != null)
+                    if (textBox7.Text != null)
                     {
-                        Searchdata("N°facture", textBox7.Text);
+                        req1 = "and  N°facture = '" + textBox7.Text + "'";
+
 
                     }
 
-
                 }
-                else if (comboBox1.SelectedIndex == 2)
+
+                if (comboBox1.SelectedIndex == 2)
                 {
-                    if (textBox7 != null)
+                    if (textBox7.Text != null)
                     {
-                        Searchdata("VÉHICULE", textBox7.Text);
+                        req2 = "and  VÉHICULE = '" + textBox7.Text + "'";
+
 
                     }
 
-
                 }
-                else if (comboBox1.SelectedIndex == 3)
+
+                if (comboBox1.SelectedIndex == 3)
                 {
-                    if (textBox7 != null)
+                    if (textBox7.Text != null)
                     {
-                        Searchdata("N°BON", textBox7.Text);
+                        req3 = "and  N°BON = '" + textBox7.Text + "'";
+
 
                     }
 
+                }
+
+                req += req1 + req2 + req3;
+                Program.sql_con.Open();
+                DataTable dt = new DataTable();
+                Program.sql_cmd.CommandText = req;
+
+
+                Program.db = Program.sql_cmd.ExecuteReader();
+                if (Program.db.HasRows)
+                {
+
+                    dt.Load(Program.db);
+                    //hide column id
+                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
+
+                    dataGridView1.DataSource = null;
+
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.ClearSelection();
 
                 }
                 else
                 {
-                    this.Alert("data note found", Form_Alert.enmType.Info);
 
+                    this.Alert("Data note found a", Form_Alert.enmType.Error);
                 }
+                Program.db.Close();
+
+                Program.sql_con.Close();
+
             }
+
+            textBox7.Text = "";
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -429,6 +475,11 @@ namespace simpleDatabase7
                     }
                 }
             }
+        }
+
+        private void textBox7_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

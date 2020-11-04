@@ -55,6 +55,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bunifuDragControl1
@@ -321,11 +323,31 @@
             this.panel1.Size = new System.Drawing.Size(798, 10);
             this.panel1.TabIndex = 118;
             // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(536, 273);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(234, 33);
+            this.textBox3.TabIndex = 140;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(384, 276);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(146, 25);
+            this.label10.TabIndex = 139;
+            this.label10.Text = "kilométrage :";
+            // 
             // Editfacture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 484);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
@@ -354,6 +376,7 @@
             this.Name = "Editfacture";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editfacture";
+            this.Load += new System.EventHandler(this.Editfacture_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,5 +409,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label10;
     }
 }

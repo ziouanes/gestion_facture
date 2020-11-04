@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-
+using System.Globalization;
 
 namespace simpleDatabase7
 {
@@ -100,20 +100,25 @@ namespace simpleDatabase7
             {
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
-                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                    string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                    DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
-                    string distination = Convert.ToString(selectedRow.Cells[2].Value);
-                    string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
-                    string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
-                    string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
-                    string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant);
-                    edit.ShowDialog();
-                    dataGridView1.DataSource = null;
-                    LoadData();
-                }
+
+
+                        CultureInfo provider = CultureInfo.InvariantCulture;
+                        int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                        string numero = Convert.ToString(selectedRow.Cells[0].Value);
+                        DateTime dateTime10 = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/mm/yyyy", provider);
+                       // DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                        string distination = Convert.ToString(selectedRow.Cells[2].Value);
+                        string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
+                        string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
+                        string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
+                        string montant = Convert.ToString(selectedRow.Cells[6].Value);
+
+                        Editodm edit = new Editodm(numero, dateTime10, distination, Véhicule, kelometrage, bénéficier, montant);
+                        edit.ShowDialog();
+                        dataGridView1.DataSource = null;
+                        LoadData();
+                    }
 
             }
 
@@ -222,6 +227,7 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numero = Convert.ToString(selectedRow.Cells[0].Value);
+                    
                     DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
                     string distination = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
@@ -259,7 +265,9 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                    DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                    DateTime date = DateTime.Parse(selectedRow.Cells[1].Value.ToString());
+
+                    //DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
                     string distination = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
@@ -270,8 +278,6 @@ namespace simpleDatabase7
                     dataGridView1.DataSource = null;
                     LoadData();
                 }
-
-
             }
         }
 

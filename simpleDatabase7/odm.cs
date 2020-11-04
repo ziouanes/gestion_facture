@@ -67,7 +67,10 @@ namespace simpleDatabase7
             else
             {
 
-                string textquery = "INSERT INTO ODM(n°ODM , DATE  ,DESTINATION, VÉHICULE, KILOMÉTRAGE  , BÉNÉFICIANT , MONTANT ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToShortDateString() + "' ,'" + textBox1.Text + "' , '" + textBox2.Text + "'  , '" + textBox6.Text + "'  , '" + textBox4.Text + "'  ,'" + textBox8.Text + "'  ) ";
+                
+
+
+                string textquery = "INSERT INTO ODM(n°ODM , DATE  ,DESTINATION, VÉHICULE, KILOMÉTRAGE  , BÉNÉFICIANT , MONTANT ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString() + "' ,'" + textBox1.Text + "' , '" + textBox2.Text + "'  , '" + textBox6.Text + "'  , '" + textBox4.Text + "'  ,'" + textBox8.Text + "'  ) ";
                 ExecuteQuery(textquery);
                 this.Alert("add facture Success", Form_Alert.enmType.Success);
                 textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;

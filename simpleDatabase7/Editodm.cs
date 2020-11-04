@@ -18,6 +18,7 @@ namespace simpleDatabase7
             InitializeComponent();
             label1.Text = numero;
             dateTimePicker1.Value = date;
+
             textBox2.Text = Véhicule;
             textBox1.Text = distination;
             textBox8.Text = montant;
@@ -56,7 +57,7 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VÉHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}'  where n°ODM = '{6}'  ", dateTimePicker1.Value.ToShortDateString(), textBox1.Text, textBox2.Text, textBox6.Text, textBox4.Text, textBox8.Text, label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VÉHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}'  where n°ODM = '{6}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, textBox2.Text, textBox6.Text, textBox4.Text, textBox8.Text, label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
@@ -117,6 +118,11 @@ namespace simpleDatabase7
             textBox1.Text = null;
             dateTimePicker1.Value = DateTime.Now;
             textBox4.Text = null;
+        }
+
+        private void Editodm_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
