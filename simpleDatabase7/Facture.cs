@@ -72,7 +72,7 @@ namespace simpleDatabase7
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            textBox2.Text = null;
+            comboBox1.SelectedIndex = -1;
             textBox3.Text = null;
             textBox8.Text = null;
             textBox6.Text = null;
@@ -97,7 +97,7 @@ namespace simpleDatabase7
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox6.Text == "" || textBox3.Text == "" || textBox8.Text == "" || textBox2.Text == "")
+            if (textBox1.Text == "" || textBox6.Text == "" || textBox3.Text == "" || textBox8.Text == "" || comboBox1.SelectedIndex == -1)
             {
                 this.Alert("all field required", Form_Alert.enmType.Error);
             }
@@ -105,10 +105,10 @@ namespace simpleDatabase7
             else
             {
 
-                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VÉHICULE, MONTANT  , N°BON , DatePaiement ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToShortDateString() + "' ,'" + textBox1.Text + "' , '" + textBox2.Text + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToShortDateString() + "') ";
+                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox4.Text + "' ) ";
                 ExecuteQuery(textquery);
                 this.Alert("add facture Success", Form_Alert.enmType.Success);
-                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
                 this.ActiveControl = textBox3;
 
@@ -148,10 +148,7 @@ namespace simpleDatabase7
 
         private void dateTimePicker2_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                this.ActiveControl = textBox2;
-            }
+            
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
@@ -189,11 +186,24 @@ namespace simpleDatabase7
         private void Facture_Load_1(object sender, EventArgs e)
         {
             this.ActiveControl = textBox3;
+            Program.sql_con.Open();
+
+            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+            Program.db = Program.sql_cmd.ExecuteReader();
+            DataTable dts = new DataTable();
+            dts.Load(Program.db);
+            comboBox1.DataSource = dts;
+            comboBox1.ValueMember = "id";
+            comboBox1.DisplayMember = "vehicule";
+            comboBox1.SelectedIndex = -1;
+            Program.sql_con.Close();
+            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private void button3_Click_2(object sender, EventArgs e)
         {
-            textBox2.Text = null;
+            comboBox1.SelectedIndex = -1;
             textBox3.Text = null;
             textBox8.Text = null;
             textBox6.Text = null;
@@ -204,7 +214,7 @@ namespace simpleDatabase7
 
         private void button1_Click_2(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox6.Text == "" || textBox3.Text == "" || textBox8.Text == "" || textBox2.Text == "")
+            if (textBox1.Text == "" || textBox6.Text == "" || textBox3.Text == "" || textBox8.Text == "" || comboBox1.SelectedIndex == -1)
             {
                 this.Alert("all field required", Form_Alert.enmType.Error);
             }
@@ -212,10 +222,10 @@ namespace simpleDatabase7
             else
             {
 
-                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VÉHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox1.Text + "' , '" + textBox2.Text + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox4.Text + "' ) ";
+                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox4.Text + "' ) ";
                 ExecuteQuery(textquery);
                 this.Alert("add facture Success", Form_Alert.enmType.Success);
-                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
                 this.ActiveControl = textBox3;
 

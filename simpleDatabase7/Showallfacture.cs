@@ -31,12 +31,12 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  facture order by DateFacture asc ", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[vehicule] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id order by DateFacture asc ", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
             //hide column 
-            dt.Columns[0].ColumnMapping = MappingType.Hidden;
+            //dt.Columns[0].ColumnMapping = MappingType.Hidden;
 
 
             dataGridView1.DataSource = null;
@@ -95,9 +95,10 @@ namespace simpleDatabase7
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string montant = Convert.ToString(selectedRow.Cells[4].Value);
                     string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                    DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
-                    string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-                    Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE); editf.ShowDialog();
+                        System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
+                        DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp);
+                        string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+                        Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE ); editf.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
 
@@ -284,9 +285,11 @@ namespace simpleDatabase7
                 string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value);
+                System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
+                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp);
                 string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment , KILOMÉTRAGE);
+              
+                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment , KILOMÉTRAGE );
                 editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
@@ -322,8 +325,11 @@ namespace simpleDatabase7
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
                 System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
-                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp); string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE); editf.ShowDialog();
+                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp); 
+                string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+               
+                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE );
+                editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
 

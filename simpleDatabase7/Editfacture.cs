@@ -14,12 +14,12 @@ namespace simpleDatabase7
     {
         
 
-        public Editfacture(string numerof, DateTime date, string garage, string Véhicule, string montant, string nbon, DateTime datepayment  , string KILOMÉTRAGE)
+        public Editfacture(string numerof, DateTime date, string garage, string Véhicule, string montant, string nbon, DateTime datepayment  , string KILOMÉTRAGE  )
         {
             InitializeComponent();
             label1.Text = numerof;
             dateTimePicker1.Value = date;
-            textBox2.Text = Véhicule;
+            comboBox1.SelectedItem = Véhicule;
             textBox1.Text = garage;
             textBox8.Text = montant;
             dateTimePicker2.Value = datepayment;
@@ -46,7 +46,7 @@ namespace simpleDatabase7
 
         private void button3_Click(object sender, EventArgs e)
         {
-            textBox2.Text = null;
+            comboBox1.SelectedIndex = -1;
             textBox8.Text = null;
             textBox6.Text = null;
             textBox1.Text = null;
@@ -75,7 +75,7 @@ namespace simpleDatabase7
         public static DataTable dtnew = new DataTable();
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox6.Text == "" || textBox8.Text == "" || textBox2.Text == "")
+            if (textBox1.Text == "" || textBox6.Text == "" || textBox8.Text == "" || comboBox1.SelectedIndex == -1)
             {
                 this.Alert("all field required", Form_Alert.enmType.Error);
             }
@@ -83,11 +83,11 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VÉHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}' , KILOMÉTRAGE = '{6}'  where N°facture = '{7}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, textBox2.Text, textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToString("dd/MM/yyyy"), textBox3.Text, label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update facture set   DateFacture =  '{0}' , GARAGE = '{1}' , VEHICULE = '{2}' ,   MONTANT = '{3}',  N°BON = '{4}'  ,   DatePaiement=  '{5}' , KILOMÉTRAGE = '{6}'   where N°facture = '{7}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, comboBox1.SelectedValue.ToString(), textBox8.Text, textBox6.Text, dateTimePicker2.Value.ToString("dd/MM/yyyy"), textBox3.Text, label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
-                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex =-1; dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
 
 
@@ -120,7 +120,7 @@ namespace simpleDatabase7
 
                 Program.sql_con.Close();
 
-                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
                 dateTimePicker2.Value = DateTime.Now;
 
 
@@ -139,7 +139,19 @@ namespace simpleDatabase7
 
         private void Editfacture_Load_1(object sender, EventArgs e)
         {
+            Program.sql_con.Open();
 
+            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+            Program.db  = Program.sql_cmd.ExecuteReader();
+            DataTable dts = new DataTable();
+            dts.Load(Program.db);
+            comboBox1.DataSource = dts;
+            comboBox1.ValueMember = "id";
+            comboBox1.DisplayMember = "vehicule";
+            //comboBox1.SelectedIndex = -1;
+            Program.sql_con.Close();
+            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
     }
 }

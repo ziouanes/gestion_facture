@@ -31,12 +31,12 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  ODM", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[vehicule] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
             //hide column 
-            dt.Columns[0].ColumnMapping = MappingType.Hidden;
+      //      dt.Columns[0].ColumnMapping = MappingType.Hidden;
 
 
 
@@ -112,8 +112,8 @@ namespace simpleDatabase7
                         string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                         string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                         string montant = Convert.ToString(selectedRow.Cells[6].Value);
-
-                        Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant);
+                        string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
+                        Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
                         edit.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
@@ -147,7 +147,7 @@ namespace simpleDatabase7
             dt.Load(Program.db);
 
             //hide column id
-            dt.Columns[0].ColumnMapping = MappingType.Hidden;
+      //      dt.Columns[0].ColumnMapping = MappingType.Hidden;
 
             dataGridView1.DataSource = null;
 
@@ -237,7 +237,8 @@ namespace simpleDatabase7
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                     string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant);
+                    string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
+                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
                     edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
@@ -268,15 +269,15 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                    DateTime date = DateTime.Parse(selectedRow.Cells[1].Value.ToString());
-
-                    //DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value);
+                    System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
+                    DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
                     string distination = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                     string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant);
+                    string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
+                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
                     edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
@@ -377,56 +378,6 @@ namespace simpleDatabase7
         private void textBox7_KeyDown_2(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyCode == Keys.Enter)
-            {
-                try
-                {
-                    if (comboBox1.SelectedIndex == -1)
-                    {
-
-                        LoadData();
-                        //textBox7.Enabled = false;
-
-                    }
-                    else if (comboBox1.SelectedIndex == 0)
-                    {
-
-                        LoadData();
-
-                    }
-                    else if (comboBox1.SelectedIndex == 1)
-                    {
-                        if (textBox7 != null)
-                        {
-                            Searchdataodm("n°ODM", textBox7.Text);
-
-                        }
-
-
-                    }
-                    else if (comboBox1.SelectedIndex == 2)
-                    {
-                        if (textBox7 != null)
-                        {
-                            Searchdataodm("VÉHICULE", textBox7.Text);
-
-                        }
-
-
-                    }
-
-                    else
-                    {
-                        this.Alert("data note found", Form_Alert.enmType.Info);
-
-                    }
-                }
-                catch (Exception x)
-                {
-
-                    MessageBox.Show(x.Message);
-                }
-            }
         }
     }
 }

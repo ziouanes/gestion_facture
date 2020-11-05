@@ -13,17 +13,18 @@ namespace simpleDatabase7
     public partial class Editodm : Form
     {
         
-        public Editodm(string numero, DateTime date, string distination, string Véhicule, string kelometrage, string bénéficier, string montant)
+        public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant , string QUALITÉ)
         {
             InitializeComponent();
             label1.Text = numero;
             dateTimePicker1.Value = date;
-
-            textBox2.Text = Véhicule;
+            comboBox1.SelectedItem = VEHICULE;
+            
             textBox1.Text = distination;
             textBox8.Text = montant;
             textBox4.Text = bénéficier;
             textBox6.Text = kelometrage;
+            textBox3.Text = QUALITÉ;
         }
         public void Alert(string msg, Form_Alert.enmType type)
         {
@@ -49,7 +50,7 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" || textBox6.Text == "" || textBox8.Text == "" || textBox2.Text == "" || textBox4.Text == "")
+            if (textBox1.Text == "" || textBox6.Text == "" || textBox8.Text == "" || comboBox1.SelectedIndex == -1 || textBox4.Text == "" || textBox3.Text == "")
             {
                 this.Alert("all field required", Form_Alert.enmType.Error);
             }
@@ -57,11 +58,11 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VÉHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}'  where n°ODM = '{6}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, textBox2.Text, textBox6.Text, textBox4.Text, textBox8.Text, label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VEHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}' , QUALITÉ = '{6}'  where n°ODM = '{7}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, comboBox1.SelectedValue.ToString(), textBox6.Text, textBox4.Text, textBox8.Text,textBox3.Text , label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
-                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
                 textBox4.Text = "";
 
 
@@ -94,7 +95,7 @@ namespace simpleDatabase7
 
                 Program.sql_con.Close();
 
-                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; textBox2.Text = ""; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox8.Text = ""; dateTimePicker1.Value = DateTime.Now;
 
 
 
@@ -112,17 +113,31 @@ namespace simpleDatabase7
 
         private void button3_Click(object sender, EventArgs e)
         {
-            textBox2.Text = null;
+            comboBox1.SelectedIndex = -1;
             textBox8.Text = null;
             textBox6.Text = null;
             textBox1.Text = null;
             dateTimePicker1.Value = DateTime.Now;
             textBox4.Text = null;
+            textBox3.Text = null;
         }
 
         private void Editodm_Load_1(object sender, EventArgs e)
         {
+            this.ActiveControl = textBox3;
+            Program.sql_con.Open();
 
+            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+            Program.db = Program.sql_cmd.ExecuteReader();
+            DataTable dts = new DataTable();
+            dts.Load(Program.db);
+            comboBox1.DataSource = dts;
+            comboBox1.ValueMember = "id";
+            comboBox1.DisplayMember = "vehicule";
+           //comboBox1.SelectedIndex = -1;
+            Program.sql_con.Close();
+            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
     }
 }
