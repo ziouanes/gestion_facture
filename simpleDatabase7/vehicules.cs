@@ -39,22 +39,28 @@ namespace simpleDatabase7
             
 
 
-            if (textBox2 != null)
+            if (textBox2.Text !="")
             {
-            
-            string textquery = "INSERT INTO vehicules(vehicule)VALUES('" + textBox2.Text + "')";
-            ExecuteQuery(textquery);
-            this.Alert("add facture vehicule", Form_Alert.enmType.Success);
-            textBox2.Text = "";
+                if (MessageBox.Show("Do you really want to add   vehicule  Matricule° " + textBox2.Text + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string textquery = "INSERT INTO vehicules(vehicule)VALUES('" + textBox2.Text + "')";
+                    ExecuteQuery(textquery);
+                    this.Alert("add facture vehicule Success", Form_Alert.enmType.Success);
+                    textBox2.Text = "";
 
 
 
 
-
+                }
 
 
 
             }
+            else
+            {
+                this.Alert("Please add  new vehicule", Form_Alert.enmType.Warning);
+            }
+
         }
 
         private void button4_Click(object sender, EventArgs e)

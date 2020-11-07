@@ -12,13 +12,17 @@ namespace simpleDatabase7
 {
     public partial class Editodm : Form
     {
-        
+
+        string st="";
+
+
         public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant , string QUALITÉ)
         {
             InitializeComponent();
             label1.Text = numero;
             dateTimePicker1.Value = date;
-            comboBox1.SelectedItem = VEHICULE;
+           
+             st = VEHICULE;
             
             textBox1.Text = distination;
             textBox8.Text = montant;
@@ -134,10 +138,13 @@ namespace simpleDatabase7
             comboBox1.DataSource = dts;
             comboBox1.ValueMember = "id";
             comboBox1.DisplayMember = "vehicule";
-           //comboBox1.SelectedIndex = -1;
             Program.sql_con.Close();
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox1.SelectedIndex = -1;
+            comboBox1.SelectedText = st;
+            this.ActiveControl = comboBox1;
+            //comboBox1.SelectedItem = st;
         }
     }
 }

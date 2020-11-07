@@ -12,6 +12,7 @@ namespace simpleDatabase7
 {
     public partial class Editfacture : Form
     {
+        string st = "";
         
 
         public Editfacture(string numerof, DateTime date, string garage, string Véhicule, string montant, string nbon, DateTime datepayment  , string KILOMÉTRAGE  )
@@ -19,7 +20,7 @@ namespace simpleDatabase7
             InitializeComponent();
             label1.Text = numerof;
             dateTimePicker1.Value = date;
-            comboBox1.SelectedItem = Véhicule;
+            st  = Véhicule;
             textBox1.Text = garage;
             textBox8.Text = montant;
             dateTimePicker2.Value = datepayment;
@@ -141,6 +142,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
 
+
             Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
             Program.db  = Program.sql_cmd.ExecuteReader();
             DataTable dts = new DataTable();
@@ -148,10 +150,13 @@ namespace simpleDatabase7
             comboBox1.DataSource = dts;
             comboBox1.ValueMember = "id";
             comboBox1.DisplayMember = "vehicule";
-            //comboBox1.SelectedIndex = -1;
+            
             Program.sql_con.Close();
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox1.SelectedIndex = -1;
+            comboBox1.SelectedText = st;
+            this.ActiveControl = comboBox1;
         }
     }
 }

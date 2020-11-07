@@ -31,7 +31,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[vehicule] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date asc", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
@@ -133,8 +133,8 @@ namespace simpleDatabase7
         public void Searchdataodm(string textsr, string textbox)
         {
             Program.sql_con.Open();
-            DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("select * from  ODM where " + textsr + " LIKE '%" + textbox + "%' ", Program.sql_con);
+            DataTable dt = new DataTable(); 
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where " + textsr + " LIKE '%" + textbox + "%' " + "order by date asc", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             if (!Program.db.HasRows)
             {
@@ -178,7 +178,7 @@ namespace simpleDatabase7
                 {
                     if (textBox7.Text != null)
                     {
-                        Searchdataodm("n°ODM", textBox7.Text);
+                        Searchdataodm("f.[n°ODM]", textBox7.Text);
 
                     }
                     else { this.Alert("text required", Form_Alert.enmType.Info); }
@@ -187,9 +187,9 @@ namespace simpleDatabase7
                 }
                 else if (comboBox1.SelectedIndex == 2)
                 {
-                    if (textBox7.Text != null)
+                    if (comboBox2.SelectedIndex != -1)
                     {
-                        Searchdataodm("VÉHICULE", textBox7.Text);
+                        Searchdataodm("v.[VEHICULE]", comboBox2.Text);
 
                     }
                     else { this.Alert("text required", Form_Alert.enmType.Info); }
@@ -254,6 +254,25 @@ namespace simpleDatabase7
             LoadData();
             dataGridView1.ClearSelection();
             comboBox1.Text = "Tout";
+
+
+
+
+            Program.sql_con.Open();
+
+
+            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+            Program.db = Program.sql_cmd.ExecuteReader();
+            DataTable dts = new DataTable();
+            dts.Load(Program.db);
+            comboBox2.DataSource = dts;
+            comboBox2.ValueMember = "id";
+            comboBox2.DisplayMember = "VEHICULE";
+
+            Program.sql_con.Close();
+            comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox1.SelectedIndex = -1;
         }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -378,6 +397,28 @@ namespace simpleDatabase7
         private void textBox7_KeyDown_2(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (comboBox1.SelectedIndex == 2)
+            {
+                textBox7.Visible = false;
+                comboBox2.Visible = true;
+                comboBox2.SelectedIndex = -1;
+            }
+           
+            else
+            {
+                textBox7.Visible = true;
+                comboBox2.Visible = false;
+            }
         }
     }
 }

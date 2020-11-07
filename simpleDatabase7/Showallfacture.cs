@@ -172,12 +172,12 @@ namespace simpleDatabase7
 
             string req, req1 = "", req2 = "", req3 = "";
 
-            req = "select * from facture where 1=1 ";
+            req = "SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[VEHICULE] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id  where 1=1 ";
 
             if (comboBox1.SelectedIndex == -1)
             {
 
-                req = "select * from facture where 1=1 ";
+                req = " SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[VEHICULE] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id  asc where 1=1";
 
 
             }
@@ -185,7 +185,7 @@ namespace simpleDatabase7
             {
                 if (textBox1.Text != null)
                 {
-                    req1 = "and  N°facture LIKE '%" + textBox1.Text + "%'";
+                    req1 = "and  f.[N°facture] LIKE '%" + textBox1.Text + "%'";
 
 
                 }
@@ -194,10 +194,10 @@ namespace simpleDatabase7
 
             if (comboBox1.SelectedIndex == 2)
             {
-                if (textBox1.Text != null)
+                if (comboBox2.SelectedIndex != -1)
                 {
-                    req2 = "and  VÉHICULE LIKE '%" + textBox1.Text + "%'";
-
+                    req2 = "and  v.[VEHICULE]  LIKE '%" + comboBox2.Text + "%'";
+                   
 
                 }
 
@@ -207,14 +207,14 @@ namespace simpleDatabase7
             {
                 if (textBox1.Text != null)
                 {
-                    req3 = "and  N°BON LIKE '%" + textBox1.Text + "%'";
+                    req3 = "and  f.[N°BON] LIKE '%" + textBox1.Text + "%'";
 
 
                 }
 
             }
 
-            req += req1+req2+req3;
+            req += req1+req2+req3+ "order by DateFacture asc";
                 Program.sql_con.Open();
                 DataTable dt = new DataTable();
                 Program.sql_cmd.CommandText = req;
@@ -225,8 +225,8 @@ namespace simpleDatabase7
                 {
 
                     dt.Load(Program.db);
-                    //hide column id
-                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
+                    
+                   
 
                     dataGridView1.DataSource = null;
 
@@ -237,7 +237,7 @@ namespace simpleDatabase7
                 else
                 {
 
-                    this.Alert("Data note found ", Form_Alert.enmType.Error);
+                    this.Alert("Data note found  test ", Form_Alert.enmType.Error);
                 }
                 Program.db.Close();
 
@@ -309,6 +309,24 @@ namespace simpleDatabase7
 
 
             comboBox1.Text = "Tout";
+
+
+            Program.sql_con.Open();
+
+
+            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+            Program.db = Program.sql_cmd.ExecuteReader();
+            DataTable dts = new DataTable();
+            dts.Load(Program.db);
+            comboBox2.DataSource = dts;
+            comboBox2.ValueMember = "id";
+            comboBox2.DisplayMember = "VEHICULE";
+
+            Program.sql_con.Close();
+            comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox1.SelectedIndex = -1;
+            //this.ActiveControl = comboBox2;
         }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -422,85 +440,31 @@ namespace simpleDatabase7
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
 
-            if (e.KeyCode == Keys.Enter)
+           
 
+
+
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedIndex == 2)
             {
-
-
-                string req, req1 = "", req2 = "", req3 = "";
-
-                req = "select * from facture where 1=1 ";
-
-                if (comboBox1.SelectedIndex == -1)
-                {
-
-                    req = "select * from facture where 1=1 ";
-
-
-                }
-                if (comboBox1.SelectedIndex == 1)
-                {
-                    if (textBox1.Text != null)
-                    {
-                        req1 = "and  N°facture LIKE '%" + textBox1.Text + "%'";
-
-
-                    }
-
-                }
-
-                if (comboBox1.SelectedIndex == 2)
-                {
-                    if (textBox1.Text != null)
-                    {
-                        req2 = "and  VÉHICULE LIKE '%" + textBox1.Text + "%'";
-
-
-                    }
-
-                }
-
-                if (comboBox1.SelectedIndex == 3)
-                {
-                    if (textBox1.Text != null)
-                    {
-                        req3 = "and  N°BON LIKE '%" + textBox1.Text + "%'";
-
-
-                    }
-
-                }
-
-                req += req1 + req2 + req3;
-                Program.sql_con.Open();
-                DataTable dt = new DataTable();
-                Program.sql_cmd.CommandText = req;
-
-
-                Program.db = Program.sql_cmd.ExecuteReader();
-                if (Program.db.HasRows)
-                {
-
-                    dt.Load(Program.db);
-                    //hide column id
-                    dt.Columns[0].ColumnMapping = MappingType.Hidden;
-
-                    dataGridView1.DataSource = null;
-
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.ClearSelection();
-
-                }
-                else
-                {
-
-                    this.Alert("Data note found a", Form_Alert.enmType.Error);
-                }
-                Program.db.Close();
-
-                Program.sql_con.Close();
-
+                textBox1.Visible = false;
+                comboBox2.Visible = true;
+                comboBox2.SelectedIndex = -1;
             }
+            else
+            {
+                textBox1.Visible = true;
+                comboBox2.Visible = false;
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
