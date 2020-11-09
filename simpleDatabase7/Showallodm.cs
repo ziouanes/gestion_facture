@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Globalization;
+using DGVPrinterHelper;
+using System.Drawing.Printing;
 
 namespace simpleDatabase7
 {
@@ -317,6 +319,7 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
@@ -419,6 +422,26 @@ namespace simpleDatabase7
                 textBox7.Visible = true;
                 comboBox2.Visible = false;
             }
+        }
+
+        private void button3_Click_2(object sender, EventArgs e)
+        {
+          //  //Init print datagridview
+          //  DGVPrinter printer = new DGVPrinter();
+          //  printer.Title = "LISTE DES Ordre De Mission ";//Header
+          //  //printer.SubTitle = string.Format("Date: {0}", DateTime.Now.Date.ToString("MM/dd/yyyy"));
+          //  printer.SubTitle = string.Format("     ");
+          //  printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+          //  printer.PageNumbers = true;
+          //  printer.PageNumberInHeader = false;
+          //  printer.PorportionalColumns = true;
+          //  printer.HeaderCellAlignment = StringAlignment.Near;
+          ////  printer.Footer = "FoxLearn";//Footer
+          //  printer.FooterSpacing = 0;
+          //  //Print landscape mode
+          //  printer.printDocument.DefaultPageSettings.Landscape = true;
+          //  printer.PrintDataGridView(dataGridView1);
+
         }
     }
 }

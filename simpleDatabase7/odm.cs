@@ -91,7 +91,7 @@ namespace simpleDatabase7
             dts.Load(Program.db);
             comboBox1.DataSource = dts;
             comboBox1.ValueMember = "id";
-            comboBox1.DisplayMember = "vehicule";
+            comboBox1.DisplayMember = "VEHICULE";
             comboBox1.SelectedIndex = -1;
             Program.sql_con.Close();
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
