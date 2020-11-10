@@ -14,22 +14,26 @@ namespace simpleDatabase7
     {
 
         string st="";
-
-
-        public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant , string QUALITÉ)
+        public Editodm()
         {
             InitializeComponent();
-            label1.Text = numero;
-            dateTimePicker1.Value = date;
-           
-             st = VEHICULE;
-            
-            textBox1.Text = distination;
-            textBox8.Text = montant;
-            textBox4.Text = bénéficier;
-            textBox6.Text = kelometrage;
-            textBox3.Text = QUALITÉ;
+
         }
+
+        //public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant , string QUALITÉ)
+        //{
+        //    InitializeComponent();
+        //    label1.Text = numero;
+        //    dateTimePicker1.Value = date;
+           
+        //     st = VEHICULE;
+            
+        //    textBox1.Text = distination;
+        //    textBox8.Text = montant;
+        //    textBox4.Text = bénéficier;
+        //    textBox6.Text = kelometrage;
+        //    textBox3.Text = QUALITÉ;
+        //}
         public void Alert(string msg, Form_Alert.enmType type)
         {
             Form_Alert frm = new Form_Alert();

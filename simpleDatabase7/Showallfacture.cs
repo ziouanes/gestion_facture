@@ -310,23 +310,23 @@ namespace simpleDatabase7
 
             comboBox1.Text = "Tout";
 
+            try
+            {
+                Program.sql_con.Open();
+                Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+                Program.db = Program.sql_cmd.ExecuteReader();
+                DataTable dts = new DataTable();
+                dts.Load(Program.db);
+                comboBox1.DataSource = dts;
+                comboBox1.ValueMember = "id";
+                comboBox1.DisplayMember = "VEHICULE";
+                comboBox1.SelectedIndex = -1;
+                Program.sql_con.Close();
+                comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-            Program.sql_con.Open();
-
-
-            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
-            Program.db = Program.sql_cmd.ExecuteReader();
-            DataTable dts = new DataTable();
-            dts.Load(Program.db);
-            comboBox2.DataSource = dts;
-            comboBox2.ValueMember = "id";
-            comboBox2.DisplayMember = "VEHICULE";
-
-            Program.sql_con.Close();
-            comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox1.SelectedIndex = -1;
-            //this.ActiveControl = comboBox2;
+            }
+            catch { }
         }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)

@@ -115,8 +115,8 @@ namespace simpleDatabase7
                         string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                         string montant = Convert.ToString(selectedRow.Cells[6].Value);
                         string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                        Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
-                        edit.ShowDialog();
+                        //Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
+                        //edit.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
                     }
@@ -240,8 +240,8 @@ namespace simpleDatabase7
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                     string montant = Convert.ToString(selectedRow.Cells[6].Value);
                     string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
-                    edit.ShowDialog();
+                    ////Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
+                    //edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
                 }
@@ -298,8 +298,8 @@ namespace simpleDatabase7
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                     string montant = Convert.ToString(selectedRow.Cells[6].Value);
                     string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
-                    edit.ShowDialog();
+                    //Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
+                    //edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
                 }
@@ -319,7 +319,6 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  

@@ -83,6 +83,8 @@ namespace simpleDatabase7
         private void odm_Load(object sender, EventArgs e)
         {
             this.ActiveControl = textBox3;
+            try
+            {
             Program.sql_con.Open();
 
             Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
@@ -96,6 +98,9 @@ namespace simpleDatabase7
             Program.sql_con.Close();
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+            }
+            catch { }
         }
     }
 }
