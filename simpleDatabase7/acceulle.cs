@@ -74,5 +74,16 @@ namespace simpleDatabase7
             vehicules VS = new vehicules();
             VS.ShowDialog();
         }
+
+        private void acceulle_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new Pen(Color.Black, 6), this.DisplayRectangle);
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

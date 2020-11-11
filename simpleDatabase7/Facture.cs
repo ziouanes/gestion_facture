@@ -227,7 +227,7 @@ namespace simpleDatabase7
             else
             {
 
-                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("dd/MM/yyyy") + "' ,'" + textBox4.Text + "' ) ";
+                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox4.Text + "' ) ";
                 ExecuteQuery(textquery);
                 this.Alert("add facture Success", Form_Alert.enmType.Success);
                 textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;

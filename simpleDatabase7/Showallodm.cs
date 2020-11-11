@@ -33,7 +33,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date asc", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date DESC", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
@@ -96,7 +96,7 @@ namespace simpleDatabase7
 
                 if (dataGridView1.CurrentRow.Selected == false)
             {
-                this.Alert("please select the row to update", Form_Alert.enmType.Warning);
+                this.Alert("sélectionnez la ligne à mettre à jour", Form_Alert.enmType.Warning);
             }
             else
             {
@@ -107,16 +107,15 @@ namespace simpleDatabase7
                         int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                         DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                         string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                        System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                        DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
+                        DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value.ToString());
                         string distination = Convert.ToString(selectedRow.Cells[2].Value);
                         string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                         string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                         string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                         string montant = Convert.ToString(selectedRow.Cells[6].Value);
                         string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                        //Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
-                        //edit.ShowDialog();
+                        Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
+                        edit.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
                     }
@@ -136,11 +135,11 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable(); 
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where " + textsr + " LIKE '%" + textbox + "%' " + "order by date asc", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where " + textsr + " LIKE '%" + textbox + "%' " + "order by date DESC", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             if (!Program.db.HasRows)
             {
-                this.Alert("Data note found", Form_Alert.enmType.Error);
+                this.Alert("Données non trouvées", Form_Alert.enmType.Error);
 
 
 
@@ -201,7 +200,7 @@ namespace simpleDatabase7
 
                 else
                 {
-                    this.Alert("data note found", Form_Alert.enmType.Info);
+                    this.Alert("Données non trouvées", Form_Alert.enmType.Info);
 
                 }
             }
@@ -218,40 +217,13 @@ namespace simpleDatabase7
             
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.CurrentRow.Selected == false)
-            {
-                this.Alert("please select the row to update", Form_Alert.enmType.Warning);
-            }
-            else
-            {
-                if (dataGridView1.SelectedCells.Count > 0)
-                {
-                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                    string numero = Convert.ToString(selectedRow.Cells[0].Value);
-
-                    System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                    DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
-                    string distination = Convert.ToString(selectedRow.Cells[2].Value);
-                    string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
-                    string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
-                    string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
-                    string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                    string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                    ////Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
-                    //edit.ShowDialog();
-                    dataGridView1.DataSource = null;
-                    LoadData();
-                }
-
-
-            }
-        }
-
+        
+        
         private void Showallodm_Load(object sender, EventArgs e)
         {
+
+           
+
             dataGridView1.DataSource = null;
             LoadData();
             dataGridView1.ClearSelection();
@@ -281,7 +253,7 @@ namespace simpleDatabase7
         {
             if (dataGridView1.CurrentRow.Selected == false)
             {
-                this.Alert("please select the row to update", Form_Alert.enmType.Warning);
+                this.Alert("sélectionnez la ligne à mettre à jour", Form_Alert.enmType.Warning);
             }
             else
             {
@@ -290,16 +262,15 @@ namespace simpleDatabase7
                     int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                     string numero = Convert.ToString(selectedRow.Cells[0].Value);
-                    System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                    DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
+                    DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value.ToString());
                     string distination = Convert.ToString(selectedRow.Cells[2].Value);
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
                     string montant = Convert.ToString(selectedRow.Cells[6].Value);
                     string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
-                    //Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
-                    //edit.ShowDialog();
+                    Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
+                    edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
                 }
@@ -332,7 +303,7 @@ namespace simpleDatabase7
             worksheet = workbook.Sheets["Sheet1"];
             worksheet = workbook.ActiveSheet;
             // changing the name of active sheet  
-            worksheet.Name = "Exported from gridview";
+            worksheet.Name = "ordre de mission";
             // storing header part in Excel  
             for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
             {
@@ -367,7 +338,7 @@ namespace simpleDatabase7
 
 
 
-                    if (MessageBox.Show("Do you really want to delete  ODM N° " + numero + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("Voulez-vous vraiment supprimer  ODM N° " + numero + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
@@ -389,7 +360,7 @@ namespace simpleDatabase7
                         dataGridView1.DataSource = null;
                         LoadData();
 
-                        this.Alert("delete facture Success", Form_Alert.enmType.Info);
+                        this.Alert("supprimer la facture Succès", Form_Alert.enmType.Info);
 
                     }
                 }
@@ -440,6 +411,21 @@ namespace simpleDatabase7
           //  //Print landscape mode
           //  printer.printDocument.DefaultPageSettings.Landscape = true;
           //  printer.PrintDataGridView(dataGridView1);
+
+        }
+
+        private void Showallodm_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

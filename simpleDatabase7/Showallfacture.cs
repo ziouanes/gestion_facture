@@ -31,7 +31,7 @@ namespace simpleDatabase7
         {
             Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[vehicule] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id order by DateFacture asc ", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[vehicule] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id order by DateFacture desc ", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
@@ -78,7 +78,7 @@ namespace simpleDatabase7
             {
                 if (dataGridView1.CurrentRow.Selected == false )
             {
-                this.Alert("please select the row to update", Form_Alert.enmType.Warning);
+                this.Alert(" sélectionnez la ligne à mettre à jour", Form_Alert.enmType.Warning);
             }
             else
             {
@@ -86,23 +86,25 @@ namespace simpleDatabase7
 
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
-                    int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-                    DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                    string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                        System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                        DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p);
-                        string garage = Convert.ToString(selectedRow.Cells[2].Value);
-                    string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
-                    string montant = Convert.ToString(selectedRow.Cells[4].Value);
-                    string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                        System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
-                        DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp);
-                        string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-                        Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE ); editf.ShowDialog();
-                    dataGridView1.DataSource = null;
-                    LoadData();
+                        int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
+                        string numerof = Convert.ToString(selectedRow.Cells[0].Value);
+                        DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value.ToString());
 
-                }
+                        string garage = Convert.ToString(selectedRow.Cells[2].Value);
+                        string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
+                        string montant = Convert.ToString(selectedRow.Cells[4].Value);
+                        string nbon = Convert.ToString(selectedRow.Cells[5].Value);
+                        DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value.ToString());
+
+                        string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
+
+                        Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE);
+                        editf.ShowDialog();
+                        dataGridView1.DataSource = null;
+                        LoadData();
+
+                    }
 
 
             }
@@ -143,7 +145,7 @@ namespace simpleDatabase7
             worksheet = workbook.Sheets["Sheet1"];
             worksheet = workbook.ActiveSheet;
             // changing the name of active sheet  
-            worksheet.Name = "Exported from gridview";
+            worksheet.Name = "Facture de réparation";
             // storing header part in Excel  
             for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
             {
@@ -177,7 +179,7 @@ namespace simpleDatabase7
             if (comboBox1.SelectedIndex == -1)
             {
 
-                req = " SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[VEHICULE] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id  asc where 1=1";
+                req = " SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[VEHICULE] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id  desc where 1=1";
 
 
             }
@@ -214,7 +216,7 @@ namespace simpleDatabase7
 
             }
 
-            req += req1+req2+req3+ "order by DateFacture asc";
+            req += req1+req2+req3+ "order by DateFacture desc";
                 Program.sql_con.Open();
                 DataTable dt = new DataTable();
                 Program.sql_cmd.CommandText = req;
@@ -237,7 +239,7 @@ namespace simpleDatabase7
                 else
                 {
 
-                    this.Alert("Data note found  test ", Form_Alert.enmType.Error);
+                    this.Alert("Données non trouvées  ", Form_Alert.enmType.Error);
                 }
                 Program.db.Close();
 
@@ -272,30 +274,6 @@ namespace simpleDatabase7
 
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.SelectedCells.Count > 0)
-            {
-                int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
-                DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
-                string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p); 
-                string garage = Convert.ToString(selectedRow.Cells[2].Value);
-                string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
-                string montant = Convert.ToString(selectedRow.Cells[4].Value);
-                string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
-                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp);
-                string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-              
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment , KILOMÉTRAGE );
-                editf.ShowDialog();
-                dataGridView1.DataSource = null;
-                LoadData();
-
-            }
-        }
 
         private void textBox7_KeyDown(object sender, KeyEventArgs e)
         {
@@ -317,13 +295,13 @@ namespace simpleDatabase7
                 Program.db = Program.sql_cmd.ExecuteReader();
                 DataTable dts = new DataTable();
                 dts.Load(Program.db);
-                comboBox1.DataSource = dts;
-                comboBox1.ValueMember = "id";
-                comboBox1.DisplayMember = "VEHICULE";
-                comboBox1.SelectedIndex = -1;
+                comboBox2.DataSource = dts;
+                comboBox2.ValueMember = "id";
+                comboBox2.DisplayMember = "VEHICULE";
+                comboBox2.SelectedIndex = -1;
                 Program.sql_con.Close();
-                comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+                comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
 
             }
             catch { }
@@ -336,17 +314,17 @@ namespace simpleDatabase7
                 int selectedrowindex = dataGridView1.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGridView1.Rows[selectedrowindex];
                 string numerof = Convert.ToString(selectedRow.Cells[0].Value);
-                System.Globalization.CultureInfo p = System.Globalization.CultureInfo.InvariantCulture;
-                DateTime date = DateTime.ParseExact(selectedRow.Cells[1].Value.ToString(), "dd/MM/yyyy", p); 
+                DateTime date = Convert.ToDateTime(selectedRow.Cells[1].Value.ToString());
+
                 string garage = Convert.ToString(selectedRow.Cells[2].Value);
                 string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                 string montant = Convert.ToString(selectedRow.Cells[4].Value);
                 string nbon = Convert.ToString(selectedRow.Cells[5].Value);
-                System.Globalization.CultureInfo pp = System.Globalization.CultureInfo.InvariantCulture;
-                DateTime datepayment = DateTime.ParseExact(selectedRow.Cells[6].Value.ToString(), "dd/MM/yyyy", pp); 
+                DateTime datepayment = Convert.ToDateTime(selectedRow.Cells[6].Value.ToString());
+
                 string KILOMÉTRAGE = Convert.ToString(selectedRow.Cells[7].Value);
-               
-                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE );
+
+                Editfacture editf = new Editfacture(numerof, date, garage, Véhicule, montant, nbon, datepayment, KILOMÉTRAGE);
                 editf.ShowDialog();
                 dataGridView1.DataSource = null;
                 LoadData();
@@ -392,7 +370,7 @@ namespace simpleDatabase7
 
 
 
-                    if (MessageBox.Show("Do you really want to delete  facture N° " + Convert.ToString(selectedRow.Cells[0].Value) + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("Voulez-vous vraiment supprimer  facture N° " + Convert.ToString(selectedRow.Cells[0].Value) + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
@@ -415,7 +393,7 @@ namespace simpleDatabase7
                         dataGridView1.DataSource = null;
                         LoadData();
                         
-                        this.Alert("delete facture Success", Form_Alert.enmType.Info);
+                        this.Alert("supprimer la facture Succès", Form_Alert.enmType.Info);
 
                     }
                 }

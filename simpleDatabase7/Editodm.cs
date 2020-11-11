@@ -14,26 +14,20 @@ namespace simpleDatabase7
     {
 
         string st="";
-        public Editodm()
+       
+
+        public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant, string QUALITÉ)
         {
             InitializeComponent();
-
+            label1.Text = numero;
+            dateTimePicker1.Value = date;
+            st = VEHICULE;
+            textBox1.Text = distination;
+            textBox8.Text = montant;
+            textBox4.Text = bénéficier;
+            textBox6.Text = kelometrage;
+            textBox3.Text = QUALITÉ;
         }
-
-        //public Editodm(string numero, DateTime date, string distination, string VEHICULE, string kelometrage, string bénéficier, string montant , string QUALITÉ)
-        //{
-        //    InitializeComponent();
-        //    label1.Text = numero;
-        //    dateTimePicker1.Value = date;
-           
-        //     st = VEHICULE;
-            
-        //    textBox1.Text = distination;
-        //    textBox8.Text = montant;
-        //    textBox4.Text = bénéficier;
-        //    textBox6.Text = kelometrage;
-        //    textBox3.Text = QUALITÉ;
-        //}
         public void Alert(string msg, Form_Alert.enmType type)
         {
             Form_Alert frm = new Form_Alert();
@@ -66,7 +60,7 @@ namespace simpleDatabase7
             else
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
-                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VEHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}' , QUALITÉ = '{6}'  where n°ODM = '{7}'  ", dateTimePicker1.Value.ToString("dd/MM/yyyy"), textBox1.Text, comboBox1.SelectedValue.ToString(), textBox6.Text, textBox4.Text, textBox8.Text,textBox3.Text , label1.Text);
+                Program.sql_cmd.CommandText = string.Format("update ODM  set   DATE =  '{0}' , DESTINATION = '{1}' , VEHICULE = '{2}' ,   KILOMÉTRAGE = '{3}',  BÉNÉFICIANT = '{4}'  ,   MONTANT=  '{5}' , QUALITÉ = '{6}'  where n°ODM = '{7}'  ", dateTimePicker1.Value.ToString("yyyy-MM-dd"), textBox1.Text, comboBox1.SelectedValue.ToString(), textBox6.Text, textBox4.Text, textBox8.Text,textBox3.Text , label1.Text);
                 Program.sql_cmd.ExecuteNonQuery();
                 Program.sql_con.Close();
 
@@ -91,7 +85,7 @@ namespace simpleDatabase7
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to delete  ODM N° " + label1.Text + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Voulez-vous vraiment supprimer  ODM N° " + label1.Text + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
@@ -114,7 +108,7 @@ namespace simpleDatabase7
 
 
                 this.Close();
-                this.Alert("delete ODM Success", Form_Alert.enmType.Info);
+                this.Alert("supprimer ODM Succès", Form_Alert.enmType.Info);
 
             }
         }

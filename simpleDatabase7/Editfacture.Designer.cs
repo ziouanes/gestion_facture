@@ -85,11 +85,11 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(601, 415);
+            this.button2.Location = new System.Drawing.Point(610, 415);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 38);
             this.button2.TabIndex = 136;
-            this.button2.Text = "Delete ";
+            this.button2.Text = "Supprimer";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -101,11 +101,11 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(139, 415);
+            this.button3.Location = new System.Drawing.Point(79, 415);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 38);
+            this.button3.Size = new System.Drawing.Size(150, 38);
             this.button3.TabIndex = 135;
-            this.button3.Text = "Clear";
+            this.button3.Text = "clear champ";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -177,7 +177,7 @@
             this.textBox1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(145, 165);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(234, 33);
+            this.textBox1.Size = new System.Drawing.Size(254, 33);
             this.textBox1.TabIndex = 133;
             // 
             // label5
@@ -196,9 +196,9 @@
             this.label3.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(17, 231);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(213, 25);
+            this.label3.Size = new System.Drawing.Size(180, 25);
             this.label3.TabIndex = 122;
-            this.label3.Text = "Date du Paiement : ";
+            this.label3.Text = "Date Paiement : ";
             // 
             // label9
             // 
@@ -292,11 +292,11 @@
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.ForeColor = System.Drawing.Color.White;
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.FormatCustom = "d/M/yyyy";
+            this.dateTimePicker1.FormatCustom = "yyyy-MM-dd";
             this.dateTimePicker1.Location = new System.Drawing.Point(201, 104);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(178, 40);
+            this.dateTimePicker1.Size = new System.Drawing.Size(198, 40);
             this.dateTimePicker1.TabIndex = 141;
             this.dateTimePicker1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
@@ -307,11 +307,11 @@
             this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker2.ForeColor = System.Drawing.Color.White;
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.FormatCustom = "d/M/yyyy";
-            this.dateTimePicker2.Location = new System.Drawing.Point(226, 225);
+            this.dateTimePicker2.FormatCustom = "yyyy-MM-dd";
+            this.dateTimePicker2.Location = new System.Drawing.Point(201, 225);
             this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(153, 40);
+            this.dateTimePicker2.Size = new System.Drawing.Size(198, 40);
             this.dateTimePicker2.TabIndex = 142;
             this.dateTimePicker2.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
