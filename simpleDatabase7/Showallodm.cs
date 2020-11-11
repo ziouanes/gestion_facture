@@ -290,6 +290,8 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
@@ -321,6 +323,13 @@ namespace simpleDatabase7
             //workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
             app.Quit();
+
+
+            }
+            catch (Exception ex)
+{
+    MessageBox.Show(ex.Message);
+}
         }
 
         private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
