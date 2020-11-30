@@ -20,7 +20,7 @@ namespace simpleDatabase7
             Application.Run(new acceulle());
         }
         static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        public static SQLiteConnection sql_con = new SQLiteConnection(@"Data Source=" + filePath + "/sqliteDB.db3");
+        public static SQLiteConnection sql_con = new SQLiteConnection(@"Data Source=" + filePath + "/base_Donnée_ODM.db3");
 
         public static SQLiteCommand sql_cmd;
         public static SQLiteDataReader db;

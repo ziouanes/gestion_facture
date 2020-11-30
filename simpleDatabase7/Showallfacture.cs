@@ -181,7 +181,7 @@ namespace simpleDatabase7
 
             
 
-            string req, req1 = "", req2 = "", req3 = "";
+            string req, req1 = "", req2 = "", req3 = "", req4 = "";
 
             req = "SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[VEHICULE] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id  where 1=1 ";
 
@@ -200,6 +200,7 @@ namespace simpleDatabase7
 
 
                 }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
 
             }
 
@@ -222,10 +223,21 @@ namespace simpleDatabase7
 
 
                 }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
 
             }
+            if (datecheck.Checked)
+            {
+                if (textBox1.Text != null || comboBox2.SelectedIndex != -1)
+                {
+                    req4 = "and f.[DateFacture] BETWEEN  '" + date1.Value.ToString("yyyy-MM-dd") + "'  and  '" + date2.Value.ToString("yyyy-MM-dd") + "'";
 
-            req += req1+req2+req3+ "order by DateFacture desc";
+
+                }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
+            }
+
+            req += req1+req2+req3+req4+ "order by f.[DateFacture] desc";
                 Program.sql_con.Open();
                 DataTable dt = new DataTable();
                 Program.sql_cmd.CommandText = req;
@@ -291,6 +303,15 @@ namespace simpleDatabase7
 
         private void Showallfacture_Load(object sender, EventArgs e)
         {
+
+            //
+            date1.Visible = false;
+            a.Visible = false;
+            date2.Visible = false;
+            //
+
+
+
             LoadData();
             dataGridView1.ClearSelection();
 
@@ -452,6 +473,23 @@ namespace simpleDatabase7
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void datecheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (datecheck.Checked)
+            {
+                date1.Visible = true;
+                a.Visible = true;
+                date2.Visible = true;
+            }
+            else
+            {
+                date1.Visible = false;
+                a.Visible = false;
+                date2.Visible = false;
+
+            }
         }
     }
 }

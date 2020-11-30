@@ -262,12 +262,13 @@
             this.dateTimePicker1.ForeColor = System.Drawing.Color.White;
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.FormatCustom = "yyyy-MM-dd";
-            this.dateTimePicker1.Location = new System.Drawing.Point(159, 137);
+            this.dateTimePicker1.Location = new System.Drawing.Point(159, 140);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(234, 40);
             this.dateTimePicker1.TabIndex = 139;
             this.dateTimePicker1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
+            this.dateTimePicker1.onValueChanged += new System.EventHandler(this.dateTimePicker1_onValueChanged);
             // 
             // button5
             // 

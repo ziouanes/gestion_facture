@@ -75,7 +75,7 @@ namespace simpleDatabase7
                 string textquery = "INSERT INTO ODM(n°ODM , DATE  ,DESTINATION, VEHICULE, KILOMÉTRAGE  , BÉNÉFICIANT , MONTANT ,   QUALITÉ  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox6.Text + "'  , '" + textBox4.Text + "'  ,'" + textBox8.Text + "','" + textBox5.Text + "'  ) ";
                 ExecuteQuery(textquery);
                 this.Alert("add facture Success", Form_Alert.enmType.Success);
-                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
+                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; 
                 textBox4.Text = null;
                 this.ActiveControl = textBox3;
 
@@ -103,6 +103,11 @@ namespace simpleDatabase7
 
             }
             catch { }
+        }
+
+        private void dateTimePicker1_onValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

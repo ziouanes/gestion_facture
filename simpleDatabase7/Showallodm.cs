@@ -50,6 +50,12 @@ namespace simpleDatabase7
 
         private void showALll_Load(object sender, EventArgs e)
         {
+            
+
+
+            
+
+
             dataGridView1.DataSource = null;
             LoadData();
             dataGridView1.ClearSelection();
@@ -131,85 +137,123 @@ namespace simpleDatabase7
         {
            
         }
-        public void Searchdataodm(string textsr, string textbox)
-        {
-            Program.sql_con.Open();
-            DataTable dt = new DataTable(); 
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where " + textsr + " LIKE '%" + textbox + "%' " + "order by date DESC", Program.sql_con);
-            Program.db = Program.sql_cmd.ExecuteReader();
-            if (!Program.db.HasRows)
-            {
-                this.Alert("Données non trouvées", Form_Alert.enmType.Error);
-
-
-
-
-            }
-            dt.Load(Program.db);
-
-            //hide column id
-      //      dt.Columns[0].ColumnMapping = MappingType.Hidden;
-
-            dataGridView1.DataSource = null;
-
-            dataGridView1.DataSource = dt;
-            dataGridView1.ClearSelection();
-
-            Program.sql_con.Close();
-        }
+       
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+
+
+            string req, req1 = "", req2 = "", req3 = "";
+
+            req = "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1=1 ";
+
+            if (comboBox1.SelectedIndex == -1)
+            {
+
+                req =  "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1 = 1 ";
+
+
+            }
+            if (comboBox1.SelectedIndex == 1)
+            {
+                if (textBox7.Text != null)
+                {
+                    req1 = "and  f.[n°ODM] LIKE '%" + textBox7.Text + "%'";
+
+
+                }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
+
+            }
+
+            if (comboBox1.SelectedIndex == 2)
+            {
+                if (comboBox2.SelectedIndex != -1)
+                {
+                    req2 = "and  v.[VEHICULE]  LIKE '%" + comboBox2.Text + "%'";
+
+
+                }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
+
+            }
+
+            if (datecheck.Checked)
+            {
+                if (textBox7.Text != null || comboBox2.SelectedIndex != -1)
+                {
+                    req3 = "and f.[DATE] BETWEEN  '" + date1.Value.ToString("yyyy-MM-dd") + "'  and  '" + date2.Value.ToString("yyyy-MM-dd") + "'";
+                   
+
+                }
+                else { this.Alert("text required", Form_Alert.enmType.Info); }
+            }
+
+
+
+
             try
             {
-                if (comboBox1.SelectedIndex == -1)
+                req += req1 + req2 + req3 + "order by date desc";
+                Program.sql_con.Open();
+                DataTable dt = new DataTable();
+                Program.sql_cmd.CommandText = req;
+
+
+                Program.db = Program.sql_cmd.ExecuteReader();
+                if (Program.db.HasRows)
                 {
 
-                    LoadData();
-                    //textBox7.Enabled = false;
+                    dt.Load(Program.db);
 
-                }
-                else if (comboBox1.SelectedIndex == 0)
-                {
 
-                    LoadData();
+
+                    dataGridView1.DataSource = null;
+
+                    dataGridView1.DataSource = dt;
+
+                    //textBox1.Text = dataGridView1.
+                    dataGridView1.ClearSelection();
+
+
                    
-                }
-                else if (comboBox1.SelectedIndex == 1)
-                {
-                    if (textBox7.Text != null)
+                    Decimal count1 = 0;
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
-                        Searchdataodm("f.[n°ODM]", textBox7.Text);
-
+                          count1 += Decimal.Parse(row.Cells[6].Value.ToString());
                     }
-                    else { this.Alert("text required", Form_Alert.enmType.Info); }
-
-
+                    MessageBox.Show(count1.ToString());
                 }
-                else if (comboBox1.SelectedIndex == 2)
-                {
-                    if (comboBox2.SelectedIndex != -1)
-                    {
-                        Searchdataodm("v.[VEHICULE]", comboBox2.Text);
-
-                    }
-                    else { this.Alert("text required", Form_Alert.enmType.Info); }
-
-
-                }
-
                 else
                 {
-                    this.Alert("Données non trouvées", Form_Alert.enmType.Info);
 
+                    this.Alert("Données non trouvées  ", Form_Alert.enmType.Error);
                 }
+                Program.db.Close();
+
+                Program.sql_con.Close();
+
             }
             catch (Exception x)
             {
 
                 MessageBox.Show(x.Message);
             }
-           
+
+
+            double sum = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                // Be aware of what numbers you have in your column!!
+                // Then cast it appropriately
+
+                sum += Convert.ToDouble(row.Cells[6].Value.ToString());
+            textBox1.Text = sum.ToString();
+
+
+
+
+
+
         }
 
         private void textBox7_KeyDown(object sender, KeyEventArgs e)
@@ -221,13 +265,23 @@ namespace simpleDatabase7
         
         private void Showallodm_Load(object sender, EventArgs e)
         {
+            ////work
 
+
+
+            //date things
+            date1.Visible = false;
+            a.Visible = false;
+            date2.Visible = false;
            
+
 
             dataGridView1.DataSource = null;
             LoadData();
             dataGridView1.ClearSelection();
             comboBox1.Text = "Tout";
+            //comboBox2.SelectedText = "";
+            //comboBox1.SelectedText ="Tout";
 
 
 
@@ -247,6 +301,16 @@ namespace simpleDatabase7
             comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox1.SelectedIndex = -1;
+
+
+
+            double sum = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                // Be aware of what numbers you have in your column!!
+                // Then cast it appropriately
+             
+            sum += Convert.ToDouble(row.Cells[6].Value.ToString());
+            textBox1.Text = sum.ToString();
         }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -302,7 +366,7 @@ namespace simpleDatabase7
             app.Visible = true;
             // get the reference of first sheet. By default its name is Sheet1.  
             // store its reference to worksheet  
-            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.Sheets[1];
             worksheet = workbook.ActiveSheet;
             // changing the name of active sheet  
             worksheet.Name = "ordre de mission";
@@ -436,6 +500,28 @@ namespace simpleDatabase7
         private void dataGridView1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void datecheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (datecheck.Checked)
+            {
+                date1.Visible = true;
+                a.Visible = true;
+                date2.Visible = true;
+            }
+            else
+            {
+                date1.Visible = false;
+                a.Visible = false;
+                date2.Visible = false;
+
+            }
         }
     }
 }

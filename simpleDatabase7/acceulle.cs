@@ -31,7 +31,7 @@ namespace simpleDatabase7
         private void button12_Click(object sender, EventArgs e)
         {
 
-            System.Diagnostics.Process.Start("mailto:zioianhamza@gmail.com");
+            System.Diagnostics.Process.Start("mailto:contact@hamza-ziouane.tech");
 
 
         }
@@ -53,8 +53,24 @@ namespace simpleDatabase7
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Showallodm showALllodm = new Showallodm();
-            showALllodm.ShowDialog();
+            
+           
+
+            try
+            {
+                using (Showallodm showALllodm = new Showallodm())
+                { 
+                    showALllodm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                    MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //this.Dispose();
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
