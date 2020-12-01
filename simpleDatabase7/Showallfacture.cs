@@ -47,6 +47,17 @@ namespace simpleDatabase7
             Program.sql_con.Close();
         }
 
+        //sum Montant
+        private void Montant_sum()
+        {
+            double sum = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+
+
+                sum += Convert.ToDouble(row.Cells[6].Value);
+            textBox1.Text = sum.ToString("F");
+        }
+
 
         private void showALll_Load(object sender, EventArgs e)
         {
@@ -103,7 +114,7 @@ namespace simpleDatabase7
                         editf.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
-
+                        Montant_sum();
                     }
 
 
@@ -255,12 +266,13 @@ namespace simpleDatabase7
 
                     dataGridView1.DataSource = dt;
                     dataGridView1.ClearSelection();
-
+                     Montant_sum();
                 }
                 else
                 {
 
                     this.Alert("Données non trouvées  ", Form_Alert.enmType.Error);
+
                 }
                 Program.db.Close();
 

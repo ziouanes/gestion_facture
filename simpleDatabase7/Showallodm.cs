@@ -28,6 +28,17 @@ namespace simpleDatabase7
             frm.showAlert(msg, type);
         }
 
+        //sum Montant
+        private void Montant_sum()
+        {
+            double sum = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+
+
+                sum += Convert.ToDouble(row.Cells[6].Value);
+            textBox1.Text = sum.ToString("F");
+        }
+
         //load data
         private void LoadData()
         {
@@ -38,8 +49,7 @@ namespace simpleDatabase7
             dt.Load(Program.db);
 
             //hide column 
-      //      dt.Columns[0].ColumnMapping = MappingType.Hidden;
-
+            //      dt.Columns[0].ColumnMapping = MappingType.Hidden;
 
 
             dataGridView1.DataSource = dt;
@@ -124,6 +134,7 @@ namespace simpleDatabase7
                         edit.ShowDialog();
                         dataGridView1.DataSource = null;
                         LoadData();
+                        Montant_sum();
                     }
 
             }
@@ -214,15 +225,11 @@ namespace simpleDatabase7
 
                     //textBox1.Text = dataGridView1.
                     dataGridView1.ClearSelection();
+                    Montant_sum();
 
 
-                   
-                    Decimal count1 = 0;
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
-                    {
-                          count1 += Decimal.Parse(row.Cells[6].Value.ToString());
-                    }
-                    MessageBox.Show(count1.ToString());
+
+
                 }
                 else
                 {
@@ -241,13 +248,7 @@ namespace simpleDatabase7
             }
 
 
-            double sum = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-                // Be aware of what numbers you have in your column!!
-                // Then cast it appropriately
-
-                sum += Convert.ToDouble(row.Cells[6].Value.ToString());
-            textBox1.Text = sum.ToString();
+           
 
 
 
@@ -255,6 +256,7 @@ namespace simpleDatabase7
 
 
         }
+        
 
         private void textBox7_KeyDown(object sender, KeyEventArgs e)
         {
@@ -267,6 +269,9 @@ namespace simpleDatabase7
         {
             ////work
 
+            //data searching
+            textBox7.Visible = false;
+            comboBox2.Visible = false;
 
 
             //date things
@@ -283,7 +288,7 @@ namespace simpleDatabase7
             //comboBox2.SelectedText = "";
             //comboBox1.SelectedText ="Tout";
 
-
+            
 
 
             Program.sql_con.Open();
@@ -302,15 +307,9 @@ namespace simpleDatabase7
             comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox1.SelectedIndex = -1;
 
+            Montant_sum();
 
 
-            double sum = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-                // Be aware of what numbers you have in your column!!
-                // Then cast it appropriately
-             
-            sum += Convert.ToDouble(row.Cells[6].Value.ToString());
-            textBox1.Text = sum.ToString();
         }
 
         private void dataGridView1_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
@@ -337,6 +336,7 @@ namespace simpleDatabase7
                     edit.ShowDialog();
                     dataGridView1.DataSource = null;
                     LoadData();
+                    Montant_sum();
                 }
             }
         }
@@ -356,8 +356,10 @@ namespace simpleDatabase7
         {
             try
             {
-            // creating Excel Application  
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+               
+
+                // creating Excel Application  
+                Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
             Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
             // creating new Excelsheet in workbook  
@@ -370,19 +372,31 @@ namespace simpleDatabase7
             worksheet = workbook.ActiveSheet;
             // changing the name of active sheet  
             worksheet.Name = "ordre de mission";
-            // storing header part in Excel  
+                // storing header part in Excel 
+                
+                worksheet.Columns.ColumnWidth = 21;
             for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
             {
                 worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-            }
+
+                }
             // storing Each row and column value to excel sheet  
             for (int i = 0; i < dataGridView1.Rows.Count ; i++)
             {
                 for (int j = 0; j < dataGridView1.Columns.Count; j++)
                 {
                     worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                }
+                        worksheet.Cells[i + 2, j + 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Lavender);
+                    }
             }
+                
+
+
+                worksheet.Cells[dataGridView1.Rows.Count + 3, dataGridView1.Columns.Count - 2].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightSalmon);
+                worksheet.Cells[dataGridView1.Rows.Count + 3, dataGridView1.Columns.Count - 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightSalmon);
+
+                worksheet.Cells[dataGridView1.Rows.Count + 3, dataGridView1.Columns.Count-2 ] = "Total_Montant";
+                worksheet.Cells[dataGridView1.Rows.Count+3, dataGridView1.Columns.Count-1] = textBox1.Text;
             // save the application  
             //workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
@@ -432,6 +446,7 @@ namespace simpleDatabase7
 
                         dataGridView1.DataSource = null;
                         LoadData();
+                        Montant_sum();
 
                         this.Alert("supprimer la facture Succès", Form_Alert.enmType.Info);
 
@@ -459,7 +474,18 @@ namespace simpleDatabase7
                 comboBox2.Visible = true;
                 comboBox2.SelectedIndex = -1;
             }
-           
+            else if (comboBox1.SelectedIndex==-1)
+            {
+                textBox7.Visible = false;
+                comboBox2.Visible = false;
+            }
+
+            else if (comboBox1.SelectedIndex == 0)
+            {
+                textBox7.Visible = false;
+                comboBox2.Visible = false;
+            }
+
             else
             {
                 textBox7.Visible = true;

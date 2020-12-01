@@ -29,12 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Showallodm));
             this.panel6 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.date2 = new Bunifu.Framework.UI.BunifuDatepicker();
+            this.datecheck = new System.Windows.Forms.CheckBox();
+            this.a = new System.Windows.Forms.Label();
+            this.date1 = new Bunifu.Framework.UI.BunifuDatepicker();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -49,10 +53,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.date1 = new Bunifu.Framework.UI.BunifuDatepicker();
-            this.a = new System.Windows.Forms.Label();
-            this.datecheck = new System.Windows.Forms.CheckBox();
-            this.date2 = new Bunifu.Framework.UI.BunifuDatepicker();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel5.SuspendLayout();
@@ -77,14 +77,14 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
@@ -137,6 +137,61 @@
             this.panel5.Size = new System.Drawing.Size(1264, 92);
             this.panel5.TabIndex = 114;
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint_1);
+            // 
+            // date2
+            // 
+            this.date2.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.date2.BorderRadius = 0;
+            this.date2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.date2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.date2.FormatCustom = "yyyy-MM-dd";
+            this.date2.Location = new System.Drawing.Point(939, 44);
+            this.date2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.date2.Name = "date2";
+            this.date2.Size = new System.Drawing.Size(153, 27);
+            this.date2.TabIndex = 151;
+            this.date2.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
+            // 
+            // datecheck
+            // 
+            this.datecheck.AutoSize = true;
+            this.datecheck.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datecheck.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.datecheck.Location = new System.Drawing.Point(669, 44);
+            this.datecheck.Name = "datecheck";
+            this.datecheck.Size = new System.Drawing.Size(82, 26);
+            this.datecheck.TabIndex = 150;
+            this.datecheck.Text = "Date : ";
+            this.datecheck.UseVisualStyleBackColor = true;
+            this.datecheck.CheckedChanged += new System.EventHandler(this.datecheck_CheckedChanged);
+            // 
+            // a
+            // 
+            this.a.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.a.AutoSize = true;
+            this.a.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.a.ForeColor = System.Drawing.Color.White;
+            this.a.Location = new System.Drawing.Point(913, 47);
+            this.a.Name = "a";
+            this.a.Size = new System.Drawing.Size(20, 19);
+            this.a.TabIndex = 149;
+            this.a.Text = "à";
+            // 
+            // date1
+            // 
+            this.date1.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.date1.BorderRadius = 0;
+            this.date1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.date1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.date1.FormatCustom = "yyyy-MM-dd";
+            this.date1.Location = new System.Drawing.Point(755, 44);
+            this.date1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.date1.Name = "date1";
+            this.date1.Size = new System.Drawing.Size(153, 27);
+            this.date1.TabIndex = 147;
+            this.date1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
             // comboBox2
             // 
@@ -207,7 +262,7 @@
             this.button5.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.Transparent;
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(1192, 6);
+            this.button5.Location = new System.Drawing.Point(1192, 1);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(33, 32);
             this.button5.TabIndex = 116;
@@ -222,7 +277,7 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(1222, 7);
+            this.button4.Location = new System.Drawing.Point(1223, 1);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(42, 30);
             this.button4.TabIndex = 48;
@@ -314,61 +369,6 @@
             this.panel1.Size = new System.Drawing.Size(1264, 52);
             this.panel1.TabIndex = 113;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // date1
-            // 
-            this.date1.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.date1.BorderRadius = 0;
-            this.date1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.date1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.date1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date1.FormatCustom = "yyyy-MM-dd";
-            this.date1.Location = new System.Drawing.Point(755, 44);
-            this.date1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.date1.Name = "date1";
-            this.date1.Size = new System.Drawing.Size(153, 27);
-            this.date1.TabIndex = 147;
-            this.date1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
-            // 
-            // a
-            // 
-            this.a.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.a.AutoSize = true;
-            this.a.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.a.ForeColor = System.Drawing.Color.White;
-            this.a.Location = new System.Drawing.Point(913, 47);
-            this.a.Name = "a";
-            this.a.Size = new System.Drawing.Size(20, 19);
-            this.a.TabIndex = 149;
-            this.a.Text = "à";
-            // 
-            // datecheck
-            // 
-            this.datecheck.AutoSize = true;
-            this.datecheck.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datecheck.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.datecheck.Location = new System.Drawing.Point(669, 44);
-            this.datecheck.Name = "datecheck";
-            this.datecheck.Size = new System.Drawing.Size(82, 26);
-            this.datecheck.TabIndex = 150;
-            this.datecheck.Text = "Date : ";
-            this.datecheck.UseVisualStyleBackColor = true;
-            this.datecheck.CheckedChanged += new System.EventHandler(this.datecheck_CheckedChanged);
-            // 
-            // date2
-            // 
-            this.date2.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.date2.BorderRadius = 0;
-            this.date2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.date2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.date2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date2.FormatCustom = "yyyy-MM-dd";
-            this.date2.Location = new System.Drawing.Point(939, 44);
-            this.date2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.date2.Name = "date2";
-            this.date2.Size = new System.Drawing.Size(153, 27);
-            this.date2.TabIndex = 151;
-            this.date2.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
             // Showallodm
             // 
