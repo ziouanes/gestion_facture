@@ -29,7 +29,7 @@ namespace simpleDatabase7
         //load data
         public void LoadData()
         {
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
             DataTable dt = new DataTable();
             Program.sql_cmd = new SQLiteCommand("SELECT f.[N°facture] ,f.[DateFacture] , f.[GARAGE] , v.[vehicule] , f.[MONTANT] , f.[N°BON] ,f.[DatePaiement],f.[KILOMÉTRAGE]    from facture f inner join vehicules v on f.VEHICULE = v.id order by DateFacture desc ", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
@@ -249,8 +249,8 @@ namespace simpleDatabase7
             }
 
             req += req1+req2+req3+req4+ "order by f.[DateFacture] desc";
-                Program.sql_con.Open();
-                DataTable dt = new DataTable();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
+            DataTable dt = new DataTable();
                 Program.sql_cmd.CommandText = req;
 
                 
@@ -316,6 +316,9 @@ namespace simpleDatabase7
         private void Showallfacture_Load(object sender, EventArgs e)
         {
 
+            //data searching
+            textBox1.Visible = false;
+            comboBox2.Visible = false;
             //
             date1.Visible = false;
             a.Visible = false;
@@ -332,7 +335,7 @@ namespace simpleDatabase7
 
             try
             {
-                Program.sql_con.Open();
+                if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
                 Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
                 Program.db = Program.sql_cmd.ExecuteReader();
                 DataTable dts = new DataTable();
@@ -469,17 +472,32 @@ namespace simpleDatabase7
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedIndex == 2)
+            if (comboBox1.SelectedIndex == 2)
             {
                 textBox1.Visible = false;
                 comboBox2.Visible = true;
                 comboBox2.SelectedIndex = -1;
             }
+            else if (comboBox1.SelectedIndex == -1)
+            {
+                textBox1.Visible = false;
+                comboBox2.Visible = false;
+            }
+
+            else if (comboBox1.SelectedIndex == 0)
+            {
+                textBox1.Visible = false;
+                comboBox2.Visible = false;
+            }
+
             else
             {
                 textBox1.Visible = true;
                 comboBox2.Visible = false;
             }
+
+
+          
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)

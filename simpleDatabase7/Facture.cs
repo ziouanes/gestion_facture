@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace simpleDatabase7
         private void ExecuteQuery(string txtQuery)
         {
             //Program.SetConnection();
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
             Program.sql_cmd = Program.sql_con.CreateCommand();
             Program.sql_cmd.CommandText = txtQuery;
             Program.sql_cmd.ExecuteNonQuery();
@@ -188,9 +189,9 @@ namespace simpleDatabase7
             this.ActiveControl = textBox3;
             try
             {
-            Program.sql_con.Open();
+                if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
-            Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
+                Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
             Program.db = Program.sql_cmd.ExecuteReader();
             DataTable dts = new DataTable();
             dts.Load(Program.db);
@@ -219,20 +220,36 @@ namespace simpleDatabase7
 
         private void button1_Click_2(object sender, EventArgs e)
         {
+            string FACTURE = textBox3.Text;
+
             if (textBox1.Text == "" || textBox6.Text == "" || textBox3.Text == "" || textBox8.Text == "" || comboBox1.SelectedIndex == -1)
             {
-                this.Alert("all field required", Form_Alert.enmType.Error);
+                this.Alert("champs obligatoires", Form_Alert.enmType.Error);
             }
 
             else
             {
 
-                string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox4.Text + "' ) ";
-                ExecuteQuery(textquery);
-                this.Alert("add facture Success", Form_Alert.enmType.Success);
-                textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
-                dateTimePicker2.Value = DateTime.Now;
-                this.ActiveControl = textBox3;
+                if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
+                Program.sql_cmd = new SQLiteCommand("SELECT * from facture where N°facture =  '" + FACTURE + "'", Program.sql_con);
+                Program.db = Program.sql_cmd.ExecuteReader();
+                if (Program.db.HasRows)
+                {
+
+                    MessageBox.Show("ODM déjà ajouter");
+                }
+
+
+                else
+                {
+
+                    string textquery = "INSERT INTO facture(N°facture , DateFacture  ,GARAGE, VEHICULE, MONTANT  , N°BON , DatePaiement  , KILOMÉTRAGE  ) VALUES('" + textBox3.Text + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox1.Text + "' , '" + comboBox1.SelectedValue + "'  , '" + textBox8.Text + "'  ,'" + textBox6.Text + "'  ,  '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' ,'" + textBox4.Text + "' ) ";
+                    ExecuteQuery(textquery);
+                    this.Alert("add facture Success", Form_Alert.enmType.Success);
+                    textBox1.Text = ""; textBox6.Text = ""; textBox3.Text = ""; textBox8.Text = ""; comboBox1.SelectedIndex = -1; dateTimePicker1.Value = DateTime.Now;
+                    dateTimePicker2.Value = DateTime.Now;
+                    this.ActiveControl = textBox3;
+                }
 
             }
         }

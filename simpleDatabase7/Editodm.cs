@@ -127,7 +127,7 @@ namespace simpleDatabase7
         private void Editodm_Load_1(object sender, EventArgs e)
         {
             this.ActiveControl = textBox3;
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
             Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
             Program.db = Program.sql_cmd.ExecuteReader();

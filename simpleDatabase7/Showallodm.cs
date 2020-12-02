@@ -42,7 +42,7 @@ namespace simpleDatabase7
         //load data
         private void LoadData()
         {
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
             DataTable dt = new DataTable();
             Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date DESC", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
@@ -206,8 +206,7 @@ namespace simpleDatabase7
             try
             {
                 req += req1 + req2 + req3 + "order by date desc";
-                Program.sql_con.Open();
-                DataTable dt = new DataTable();
+                if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open(); DataTable dt = new DataTable();
                 Program.sql_cmd.CommandText = req;
 
 
@@ -288,11 +287,10 @@ namespace simpleDatabase7
             //comboBox2.SelectedText = "";
             //comboBox1.SelectedText ="Tout";
 
-            
 
 
-            Program.sql_con.Open();
 
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
             Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
             Program.db = Program.sql_cmd.ExecuteReader();

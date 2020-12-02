@@ -67,7 +67,7 @@ namespace simpleDatabase7
         private void ExecuteQuery(string txtQuery)
         {
             //Program.SetConnection();
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
             Program.sql_cmd = Program.sql_con.CreateCommand();
             Program.sql_cmd.CommandText = txtQuery;
             Program.sql_cmd.ExecuteNonQuery();
@@ -140,7 +140,7 @@ namespace simpleDatabase7
 
         private void Editfacture_Load_1(object sender, EventArgs e)
         {
-            Program.sql_con.Open();
+            if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
 
             Program.sql_cmd.CommandText = string.Format("select  * from vehicules ");
