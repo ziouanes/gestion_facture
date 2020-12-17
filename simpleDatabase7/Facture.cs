@@ -186,6 +186,8 @@ namespace simpleDatabase7
 
         private void Facture_Load_1(object sender, EventArgs e)
         {
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            dateTimePicker2.CustomFormat = "dd/MM/yyyy";
             this.ActiveControl = textBox3;
             try
             {
@@ -278,6 +280,11 @@ namespace simpleDatabase7
             {
                 e.Handled = true;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

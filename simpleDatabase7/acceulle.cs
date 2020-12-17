@@ -44,8 +44,8 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Facture fc = new Facture();
-            //fc.ShowDialog();
+            Facture fc = new Facture();
+            fc.ShowDialog();
 
 
 

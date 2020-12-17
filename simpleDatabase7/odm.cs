@@ -104,6 +104,8 @@ namespace simpleDatabase7
 
         private void odm_Load(object sender, EventArgs e)
         {
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+
             this.ActiveControl = textBox3;
             try
             {

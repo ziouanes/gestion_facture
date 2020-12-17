@@ -52,11 +52,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new Bunifu.Framework.UI.BunifuDatepicker();
-            this.dateTimePicker2 = new Bunifu.Framework.UI.BunifuDatepicker();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // bunifuDragControl1
@@ -286,36 +286,6 @@
             this.label10.TabIndex = 139;
             this.label10.Text = "kilométrage :";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.dateTimePicker1.BorderRadius = 0;
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.ForeColor = System.Drawing.Color.White;
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.FormatCustom = "yyyy-MM-dd";
-            this.dateTimePicker1.Location = new System.Drawing.Point(201, 104);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(198, 40);
-            this.dateTimePicker1.TabIndex = 141;
-            this.dateTimePicker1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.dateTimePicker2.BorderRadius = 0;
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.ForeColor = System.Drawing.Color.White;
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.FormatCustom = "yyyy-MM-dd";
-            this.dateTimePicker2.Location = new System.Drawing.Point(201, 225);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(198, 40);
-            this.dateTimePicker2.TabIndex = 142;
-            this.dateTimePicker2.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
-            // 
             // button5
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -356,14 +326,36 @@
             this.comboBox1.Size = new System.Drawing.Size(234, 30);
             this.comboBox1.TabIndex = 143;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft YaHei UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(240, 116);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(159, 33);
+            this.dateTimePicker1.TabIndex = 179;
+            this.dateTimePicker1.Value = new System.DateTime(2020, 12, 15, 0, 0, 0, 0);
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CalendarFont = new System.Drawing.Font("Microsoft YaHei UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker2.Location = new System.Drawing.Point(240, 231);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(159, 33);
+            this.dateTimePicker2.TabIndex = 180;
+            this.dateTimePicker2.Value = new System.DateTime(2020, 12, 15, 0, 0, 0, 0);
+            // 
             // Editfacture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 484);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.button5);
@@ -423,8 +415,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label10;
-        private Bunifu.Framework.UI.BunifuDatepicker dateTimePicker2;
-        private Bunifu.Framework.UI.BunifuDatepicker dateTimePicker1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

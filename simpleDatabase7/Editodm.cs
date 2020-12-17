@@ -85,7 +85,7 @@ namespace simpleDatabase7
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Voulez-vous vraiment supprimer  ODM N° " + label1.Text + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Voulez-vous vraiment    supprimer  ODM N° " + label1.Text + " ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
@@ -126,6 +126,8 @@ namespace simpleDatabase7
 
         private void Editodm_Load_1(object sender, EventArgs e)
         {
+            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+
             this.ActiveControl = textBox3;
             if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
 
