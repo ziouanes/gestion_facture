@@ -266,6 +266,10 @@ namespace simpleDatabase7
         
         private void Showallodm_Load(object sender, EventArgs e)
         {
+
+            date1.CustomFormat = "dd/MM/yyyy";
+            date2.CustomFormat = "dd/MM/yyyy";
+
             ////work
 
             //data searching

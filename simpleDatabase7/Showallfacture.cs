@@ -54,8 +54,8 @@ namespace simpleDatabase7
             foreach (DataGridViewRow row in dataGridView1.Rows)
 
 
-                sum += Convert.ToDouble(row.Cells[6].Value);
-            textBox1.Text = sum.ToString("F");
+                sum += Convert.ToDouble(row.Cells[4].Value);
+            textBox2.Text = sum.ToString("F");
         }
 
 
@@ -315,7 +315,8 @@ namespace simpleDatabase7
 
         private void Showallfacture_Load(object sender, EventArgs e)
         {
-
+            date1.CustomFormat = "dd/MM/yyyy";
+            date2.CustomFormat = "dd/MM/yyyy";
             //data searching
             textBox1.Visible = false;
             comboBox2.Visible = false;

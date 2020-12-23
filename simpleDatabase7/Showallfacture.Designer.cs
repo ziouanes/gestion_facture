@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Showallfacture));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.date2 = new Bunifu.Framework.UI.BunifuDatepicker();
             this.datecheck = new System.Windows.Forms.CheckBox();
             this.a = new System.Windows.Forms.Label();
-            this.date1 = new Bunifu.Framework.UI.BunifuDatepicker();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -54,6 +52,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.date1 = new System.Windows.Forms.DateTimePicker();
+            this.date2 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -69,22 +69,22 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveBorder;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1200, 564);
             this.dataGridView1.TabIndex = 0;
@@ -119,9 +119,9 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(71)))), ((int)(((byte)(160)))));
             this.panel5.Controls.Add(this.date2);
+            this.panel5.Controls.Add(this.date1);
             this.panel5.Controls.Add(this.datecheck);
             this.panel5.Controls.Add(this.a);
-            this.panel5.Controls.Add(this.date1);
             this.panel5.Controls.Add(this.comboBox2);
             this.panel5.Controls.Add(this.textBox1);
             this.panel5.Controls.Add(this.comboBox1);
@@ -136,21 +136,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1200, 104);
             this.panel5.TabIndex = 117;
-            // 
-            // date2
-            // 
-            this.date2.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.date2.BorderRadius = 0;
-            this.date2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.date2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.date2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date2.FormatCustom = "yyyy-MM-dd";
-            this.date2.Location = new System.Drawing.Point(839, 47);
-            this.date2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.date2.Name = "date2";
-            this.date2.Size = new System.Drawing.Size(153, 27);
-            this.date2.TabIndex = 155;
-            this.date2.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
             // datecheck
             // 
@@ -176,21 +161,6 @@
             this.a.Size = new System.Drawing.Size(20, 19);
             this.a.TabIndex = 153;
             this.a.Text = "à";
-            // 
-            // date1
-            // 
-            this.date1.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.date1.BorderRadius = 0;
-            this.date1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.date1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.date1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date1.FormatCustom = "yyyy-MM-dd";
-            this.date1.Location = new System.Drawing.Point(655, 47);
-            this.date1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.date1.Name = "date1";
-            this.date1.Size = new System.Drawing.Size(153, 27);
-            this.date1.TabIndex = 152;
-            this.date1.Value = new System.DateTime(2020, 11, 4, 11, 6, 21, 834);
             // 
             // comboBox2
             // 
@@ -372,6 +342,28 @@
             this.bunifuDragControl1.TargetControl = this.panel5;
             this.bunifuDragControl1.Vertical = true;
             // 
+            // date1
+            // 
+            this.date1.CalendarFont = new System.Drawing.Font("Microsoft YaHei UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.date1.Location = new System.Drawing.Point(648, 47);
+            this.date1.Name = "date1";
+            this.date1.Size = new System.Drawing.Size(159, 33);
+            this.date1.TabIndex = 179;
+            this.date1.Value = new System.DateTime(2020, 12, 15, 0, 0, 0, 0);
+            // 
+            // date2
+            // 
+            this.date2.CalendarFont = new System.Drawing.Font("Microsoft YaHei UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.date2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.date2.Location = new System.Drawing.Point(839, 47);
+            this.date2.Name = "date2";
+            this.date2.Size = new System.Drawing.Size(159, 33);
+            this.date2.TabIndex = 180;
+            this.date2.Value = new System.DateTime(2020, 12, 15, 0, 0, 0, 0);
+            // 
             // Showallfacture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,11 +406,11 @@
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ComboBox comboBox2;
-        private Bunifu.Framework.UI.BunifuDatepicker date2;
         private System.Windows.Forms.CheckBox datecheck;
         private System.Windows.Forms.Label a;
-        private Bunifu.Framework.UI.BunifuDatepicker date1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.DateTimePicker date1;
+        private System.Windows.Forms.DateTimePicker date2;
     }
 }

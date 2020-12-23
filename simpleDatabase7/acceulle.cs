@@ -44,233 +44,8 @@ namespace simpleDatabase7
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Facture fc = new Facture();
-            fc.ShowDialog();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            //Facture fc = new Facture();
+            //fc.ShowDialog();
 
 
 
@@ -278,19 +53,19 @@ namespace simpleDatabase7
 
         private void button7_Click(object sender, EventArgs e)
         {
-            
-           
+
+
 
             try
             {
                 using (Showallodm showALllodm = new Showallodm())
-                { 
+                {
                     showALllodm.ShowDialog();
                 }
             }
             catch (Exception ex)
             {
-                    MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
             finally
             {
@@ -300,8 +75,8 @@ namespace simpleDatabase7
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Showallfacture ALllFacture = new Showallfacture();
-            ALllFacture.ShowDialog();
+            //Showallfacture ALllFacture = new Showallfacture();
+            //ALllFacture.ShowDialog();
         }
 
         private void acceulle_Load(object sender, EventArgs e)
