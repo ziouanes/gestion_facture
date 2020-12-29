@@ -75,8 +75,8 @@ namespace simpleDatabase7
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Showallfacture ALllFacture = new Showallfacture();
-            //ALllFacture.ShowDialog();
+            Showallfacture ALllFacture = new Showallfacture();
+            ALllFacture.ShowDialog();
         }
 
         private void acceulle_Load(object sender, EventArgs e)

@@ -25,7 +25,16 @@ namespace simpleDatabase7
             Form_Alert frm = new Form_Alert();
             frm.showAlert(msg, type);
         }
+        //sum Montant
+        private void Montant_sum()
+        {
+            double sum = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
 
+
+                sum += Convert.ToDouble(row.Cells[4].Value);
+            textBox2.Text = sum.ToString("F");
+        }
         //load data
         public void LoadData()
         {
@@ -47,16 +56,7 @@ namespace simpleDatabase7
             Program.sql_con.Close();
         }
 
-        //sum Montant
-        private void Montant_sum()
-        {
-            double sum = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-
-
-                sum += Convert.ToDouble(row.Cells[4].Value);
-            textBox2.Text = sum.ToString("F");
-        }
+       
 
 
         private void showALll_Load(object sender, EventArgs e)
@@ -327,7 +327,6 @@ namespace simpleDatabase7
             //
 
 
-
             LoadData();
             dataGridView1.ClearSelection();
 
@@ -348,6 +347,7 @@ namespace simpleDatabase7
                 Program.sql_con.Close();
                 comboBox2.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 comboBox2.AutoCompleteSource = AutoCompleteSource.ListItems;
+                Montant_sum();
 
             }
             catch { }

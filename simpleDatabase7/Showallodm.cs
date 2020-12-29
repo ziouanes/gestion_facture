@@ -35,7 +35,7 @@ namespace simpleDatabase7
             foreach (DataGridViewRow row in dataGridView1.Rows)
 
 
-                sum += Convert.ToDouble(row.Cells[6].Value);
+                sum += Convert.ToDouble(row.Cells[7].Value);
             textBox1.Text = sum.ToString("F");
         }
 
@@ -44,7 +44,7 @@ namespace simpleDatabase7
         {
             if (Program.sql_con.State == ConnectionState.Closed) Program.sql_con.Open();
             DataTable dt = new DataTable();
-            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date DESC", Program.sql_con);
+            Program.sql_cmd = new SQLiteCommand("SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[QUALITÉ],f.[MONTANT]  from ODM F inner join vehicules v on f.VEHICULE = v.id order by date DESC", Program.sql_con);
             Program.db = Program.sql_cmd.ExecuteReader();
             dt.Load(Program.db);
 
@@ -89,6 +89,7 @@ namespace simpleDatabase7
             odm.ShowDialog();
             dataGridView1.DataSource = null;
             LoadData();
+            Montant_sum();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -128,8 +129,8 @@ namespace simpleDatabase7
                         string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                         string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                         string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
-                        string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                        string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
+                        string montant = Convert.ToString(selectedRow.Cells[7].Value);
+                        string QUALITÉ = Convert.ToString(selectedRow.Cells[6].Value);
                         Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant , QUALITÉ);
                         edit.ShowDialog();
                         dataGridView1.DataSource = null;
@@ -156,12 +157,12 @@ namespace simpleDatabase7
 
             string req, req1 = "", req2 = "", req3 = "";
 
-            req = "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1=1 ";
+            req = "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[QUALITÉ],f.[MONTANT]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1=1 ";
 
             if (comboBox1.SelectedIndex == -1)
             {
 
-                req =  "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT] ,f.[MONTANT],f.[QUALITÉ]  from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1 = 1 ";
+                req = "SELECT f.[n°ODM] ,f.[DATE] , f.[DESTINATION] , v.[VEHICULE] , f.[KILOMÉTRAGE] , f.[BÉNÉFICIANT],f.[QUALITÉ]  ,f.[MONTANT] from ODM F inner join vehicules v on f.VEHICULE = v.id  where 1 = 1 ";
 
 
             }
@@ -332,8 +333,8 @@ namespace simpleDatabase7
                     string Véhicule = Convert.ToString(selectedRow.Cells[3].Value);
                     string kelometrage = Convert.ToString(selectedRow.Cells[4].Value);
                     string bénéficier = Convert.ToString(selectedRow.Cells[5].Value);
-                    string montant = Convert.ToString(selectedRow.Cells[6].Value);
-                    string QUALITÉ = Convert.ToString(selectedRow.Cells[7].Value);
+                    string montant = Convert.ToString(selectedRow.Cells[7].Value);
+                    string QUALITÉ = Convert.ToString(selectedRow.Cells[6].Value);
                     Editodm edit = new Editodm(numero, date, distination, Véhicule, kelometrage, bénéficier, montant, QUALITÉ);
                     edit.ShowDialog();
                     dataGridView1.DataSource = null;
